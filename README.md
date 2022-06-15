@@ -2,6 +2,8 @@
 
 <br/>
 
+<img src="https://user-images.githubusercontent.com/76596316/173767135-00e52f37-8514-4352-a981-b8fa6c78ef7f.png" width="250"/>
+
 중고거래 시장이 성장한 만큼 사기 수법도 더욱 치밀해지고 있는 점을 고려하여, <br/><br/>
 
 1️⃣ 중고 제품 **가품 검증** <br/><br/>
