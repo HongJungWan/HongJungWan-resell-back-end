@@ -24,7 +24,7 @@
 
 [이소라, "무신사 같은 '짝퉁 논란' 피해야…패션·중고거래 앱도 '명품 검증' 사활", 한국일보, 2022. 05. 09](https://m.hankookilbo.com/News/Read/A2022050814420005837)<br/><br/>
 
-<img src="https://user-images.githubusercontent.com/76596316/173557677-828247ce-6371-4f67-83f8-b82da3c425a7.png" width="650" />
+<img src="https://user-images.githubusercontent.com/76596316/173557677-828247ce-6371-4f67-83f8-b82da3c425a7.png" width="450" />
 
 <br/><br/>
 
@@ -48,4 +48,14 @@
 
 해당 프로젝트의 요구사항 명세서는 위의 링크를 통해 참고하실 수 있습니다.
 
+<br/><br/>
+
+# 📄 ERD
+
 <br/>
+
+<img src="https://user-images.githubusercontent.com/76596316/175770653-1d64bb8a-19d4-414c-ae4c-45b35d09fb26.png" width="650">
+
+👆 위 이미지를 클릭하면 ERD를 자세히 볼 수 있습니다.
+
+<br/><br/>
