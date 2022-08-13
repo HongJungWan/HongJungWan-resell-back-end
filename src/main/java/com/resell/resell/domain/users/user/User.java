@@ -2,11 +2,9 @@ package com.resell.resell.domain.users.user;
 
 import com.resell.resell.domain.users.common.Account;
 import com.resell.resell.domain.users.common.UserBase;
+import com.resell.resell.domain.users.common.UserLevel;
 import com.resell.resell.domain.users.common.UserStatus;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -30,5 +28,17 @@ public class User extends UserBase {
     private LocalDateTime nicknameModifiedDate;
 
     private UserStatus userStatus;
+
+    @Builder
+    public User(Long id, String email, String password, UserLevel userLevel, String nickname, String phone, LocalDateTime nicknameModifiedDate, UserStatus userStatus, Long point) {
+
+        super(id, email, password, userLevel);
+        this.nickname = nickname;
+        this.phone = phone;
+        this.userLevel = userLevel;
+        this.nicknameModifiedDate = nicknameModifiedDate;
+        this.userStatus = userStatus;
+        this.point = point;
+    }
 
 }

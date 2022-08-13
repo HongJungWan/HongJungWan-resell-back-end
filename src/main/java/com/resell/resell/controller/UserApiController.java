@@ -3,10 +3,11 @@ package com.resell.resell.controller;
 import com.resell.resell.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+import static com.resell.resell.common.utils.constants.ResponseConstants.CREATED;
 
 @RequiredArgsConstructor
 @RequestMapping("/users")
@@ -24,5 +25,11 @@ public class UserApiController {
     public ResponseEntity<Boolean> checkNicknameDuplicate(@PathVariable String nickname) {
         return ResponseEntity.ok(userService.checkNicknameDuplicate(nickname));
     }
-    
+
+    @PostMapping
+    public ResponseEntity<Void> createUser(@Valid @RequestBody com.resell.resell.controller.dto.UserDto.SaveRequest requestDto) {
+        userService.save(requestDto);
+        return CREATED;
+    }
+
 }
