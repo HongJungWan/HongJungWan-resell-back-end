@@ -87,11 +87,6 @@ class UserApiControllerTest {
     }
 
     @Test
-    @DisplayName("회원가입 -> 중복 닉네임 or 중복 이메일 -> 이메일 회원가입 실패")
-    void createUser_failure() throws Exception {
-    }
-
-    @Test
     @DisplayName("이메일 중복 체크 -> 이메일 중복")
     void checkEmailDuplicate_failure() throws Exception {
         String email = "HongJungWan@test.com";
@@ -121,12 +116,30 @@ class UserApiControllerTest {
 
     @Test
     @DisplayName("닉네임 중복 체크 -> 닉네임 중복")
-    void checkNicknameDuplicate_failure() {
+    void checkNicknameDuplicate_failure() throws Exception {
+        String nickName = "GodHong";
+        given(userService.checkNicknameDuplicate(nickName)).willReturn(true);
+
+        mockMvc.perform(get("/users/user-nicknames/{nickname}/exists", nickName))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"))
+                .andDo(document("users/duplicateNickname/failure",
+                        pathParameters(
+                                parameterWithName("nickname").description("닉네임"))));
     }
 
     @Test
     @DisplayName("닉네임 중복 체크 -> 사용 가능 닉네임")
-    void checkNicknameDuplicate_successful() {
+    void checkNicknameDuplicate_successful() throws Exception {
+        String nickName = "GodHong";
+        given(userService.checkNicknameDuplicate(nickName)).willReturn(false);
+
+        mockMvc.perform(get("/users/user-nicknames/{nickname}/exists", nickName))
+                .andExpect(status().isOk())
+                .andExpect(content().string("false"))
+                .andDo(document("users/duplicateNickname/successful",
+                        pathParameters(
+                                parameterWithName("nickname").description("닉네임"))));
     }
 
 }
