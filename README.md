@@ -1,5 +1,7 @@
 ✅ 매달 초 README.md update
 
+<img src="../../블로그/썸네일/resell.png" width="200">
+
 <br/>
 
 ---
@@ -113,7 +115,11 @@ Web 개발 환경
 
 ### 🧐 프로젝트 진행 시, 고민했던 점들
 
+<br/>
+
 📄 [요구사항 명세서](https://velog.io/@daydream/ReSeller-Project-%EC%A3%BC%EC%9A%94-API)
+
+📄 [Spring Rest Docs를 프로젝트에 도입해 보자](https://velog.io/@daydream/ReSeller-Project-Spring-Rest-Docs%EB%A5%BC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-%EB%8F%84%EC%9E%85%ED%95%B4-%EB%B3%B4%EC%9E%90)
 
 <br/><br/>
 
