@@ -4,10 +4,7 @@ import com.resell.resell.domain.users.common.UserLevel;
 import com.resell.resell.domain.users.common.UserStatus;
 import com.resell.resell.domain.users.user.User;
 import com.resell.resell.service.encrytion.EncryptionService;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -62,7 +59,20 @@ public class UserDto {
                     .point(0L)
                     .build();
         }
-        
+    }
+
+    @Getter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class LoginRequest {
+
+        private String email;
+        private String password;
+
+        public void passwordEncryption(EncryptionService encryptionService) {
+            this.password = encryptionService.encrypt(password);
+        }
     }
 
 }
