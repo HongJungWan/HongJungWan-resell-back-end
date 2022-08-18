@@ -2,6 +2,7 @@ package com.resell.resell.controller;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.resell.resell.service.SessionLoginService;
 import com.resell.resell.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,10 +16,12 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static com.resell.resell.controller.dto.UserDto.LoginRequest;
 import static com.resell.resell.controller.dto.UserDto.SaveRequest;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -39,12 +42,16 @@ import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfig
 @ExtendWith(RestDocumentationExtension.class)
 @WebMvcTest(UserApiController.class)
 @MockBean(JpaMetamodelMappingContext.class)
+@ActiveProfiles("test")
 class UserApiControllerTest {
 
     @MockBean
     private UserService userService;
 
     private MockMvc mockMvc;
+
+    @MockBean
+    private SessionLoginService sessionLoginService;
 
     @Autowired
     ObjectMapper objectMapper;
@@ -142,4 +149,26 @@ class UserApiControllerTest {
                                 parameterWithName("nickname").description("닉네임"))));
     }
 
+    @Test
+    @DisplayName("로그인 - 로그인 성공")
+    void login_successful() throws Exception {
+        LoginRequest requestDto = LoginRequest.builder()
+                .email("HongJungWan@test.com")
+                .password("test1234")
+                .build();
+
+        doNothing().when(sessionLoginService).login(requestDto);
+
+        mockMvc.perform(post("/users/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andDo(document("users/login/successful", requestFields(
+                        fieldWithPath("email").type(JsonFieldType.STRING)
+                                .description("login ID (email)"),
+                        fieldWithPath("password").type(JsonFieldType.STRING).description("password")
+                )));
+    }
+    
 }

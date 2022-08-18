@@ -155,3 +155,23 @@ include::{snippets}/users/duplicateNickname/failure/http-response.adoc[]
 NOTE: 중복 검사 통과시 false , 중복 검사 실패시 true 리턴
 
 ---
+
+=== 2. login / logout
+
+==== 로그인
+
+`*_1. Success_*`
+
+**request-fields**
+
+include::{snippets}/users/login/successful/request-fields.adoc[]
+
+**Example request**
+
+include::{snippets}/users/login/successful/http-request.adoc[]
+
+**Example response**
+
+include::{snippets}/users/login/successful/http-response.adoc[]
+
+---
