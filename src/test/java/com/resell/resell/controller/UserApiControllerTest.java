@@ -32,6 +32,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -170,5 +171,16 @@ class UserApiControllerTest {
                         fieldWithPath("password").type(JsonFieldType.STRING).description("password")
                 )));
     }
-    
+
+    @Test
+    @DisplayName("로그아웃 - 로그아웃 성공")
+    void logout() throws Exception {
+        doNothing().when(sessionLoginService).logout();
+
+        mockMvc.perform(delete("/users/logout"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andDo(document("users/logout"));
+    }
+
 }
