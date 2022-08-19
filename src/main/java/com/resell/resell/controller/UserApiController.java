@@ -1,5 +1,7 @@
 package com.resell.resell.controller;
 
+import com.resell.resell.common.utils.annotation.CurrentUser;
+import com.resell.resell.common.utils.annotation.LoginCheck;
 import com.resell.resell.service.SessionLoginService;
 import com.resell.resell.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +42,17 @@ public class UserApiController {
     @PostMapping("/login")
     public void login(@RequestBody LoginRequest loginRequest) {
         sessionLoginService.login(loginRequest);
+    }
+
+    @LoginCheck
+    @DeleteMapping("/logout")
+    public void logout(@CurrentUser String email) {
+        sessionLoginService.logout();
+    }
+
+    @GetMapping("/email-check-token")
+    public void emailCheck(String token, String email) {
+        userService.updateEmailVerified(token, email);
     }
 
 }
