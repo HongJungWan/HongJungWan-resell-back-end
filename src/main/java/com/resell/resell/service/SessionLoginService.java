@@ -24,6 +24,7 @@ public class SessionLoginService {
 
     private final EncryptionService encryptionService;
 
+    
     @Transactional(readOnly = true)
     public void existByEmailAndPassword(LoginRequest loginRequest) {
         loginRequest.passwordEncryption(encryptionService);
