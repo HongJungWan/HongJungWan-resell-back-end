@@ -49,4 +49,8 @@ public class SessionLoginService {
         session.setAttribute(AUTH_STATUS, user.getUserLevel());
     }
 
+    public void logout() {
+        session.removeAttribute(USER_ID);
+    }
+
 }
