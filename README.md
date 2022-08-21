@@ -1,11 +1,3 @@
-✅ 매달 초 README.md update
-
-<img src="../../블로그/썸네일/resell.png" width="200">
-
-<br/>
-
----
-
 # Resell
 
 ### 👜 온라인 중고 거래 API 서버
@@ -14,7 +6,7 @@
 
 <br/><br/>
 
-프로젝트 진행 중, 🛠 개발 중입니다.
+프로젝트 진행 중, 🛠 개발 중입니다. <br/>
 
 ---
 
@@ -49,11 +41,11 @@
 
 ### ⚔ 개발 목표
 
-중고거래 시장이 성장한 만큼 사기 수법도 더욱 치밀해지고 있는 점을 고려하여, <br/>
+중고거래 시장이 성장한 만큼 사기 수법도 더욱 치밀해지고 있는 점을 고려하여, <br/><br/>
 
 1️⃣ 중고 제품 **가품 검증** <br/>
 2️⃣ 유저 간 **사기 방지** <br/>
-4️⃣ 클라이언트는 프로토타입으로 제작, **API 서버 개발**에 집중
+3️⃣ 클라이언트는 프로토타입으로 제작, **API 서버 개발**에 집중
 
 <br/><br/>
 
@@ -120,6 +112,8 @@ Web 개발 환경
 📄 [요구사항 명세서](https://velog.io/@daydream/ReSeller-Project-%EC%A3%BC%EC%9A%94-API)
 
 📄 [Spring Rest Docs를 프로젝트에 도입해 보자](https://velog.io/@daydream/ReSeller-Project-Spring-Rest-Docs%EB%A5%BC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-%EB%8F%84%EC%9E%85%ED%95%B4-%EB%B3%B4%EC%9E%90)
+
+📄 [Spring Mail AuthenticationFailedException](https://velog.io/@daydream/ReSeller-Project-Spring-Mail-AuthenticationFailedException-%ED%95%B4%EA%B2%B0)
 
 <br/><br/>
 
