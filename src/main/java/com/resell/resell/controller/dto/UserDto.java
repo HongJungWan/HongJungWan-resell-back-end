@@ -73,6 +73,81 @@ public class UserDto {
         public void passwordEncryption(EncryptionService encryptionService) {
             this.password = encryptionService.encrypt(password);
         }
+
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class UserInfoDto {
+
+        private String email;
+        private String nickname;
+        private String phone;
+        private UserLevel userLevel;
+
+        @Builder
+        public UserInfoDto(String email, String nickname, String phone,
+                           UserLevel userLevel) {
+            this.email = email;
+            this.nickname = nickname;
+            this.phone = phone;
+            this.userLevel = userLevel;
+        }
+
+    }
+
+    @Getter
+    public static class FindUserResponse {
+
+        private String email;
+        private String phone;
+
+        @Builder
+        public FindUserResponse(String email, String phone) {
+            this.email = email;
+            this.phone = phone;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class EmailCertificationRequest {
+
+        private String email;
+        private String certificationNumber;
+
+        @Builder
+        public EmailCertificationRequest(String email, String certificationNumber) {
+            this.email = email;
+            this.certificationNumber = certificationNumber;
+        }
+
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class ChangePasswordRequest {
+
+        private String email;
+
+        @NotBlank(message = "비밀번호를 입력해주세요.")
+        @Size(min = 8, max = 20, message = "비밀번호는 8자 이상 20자 이하로 입력해주세요.")
+        private String passwordAfter;
+        private String passwordBefore;
+
+        public void passwordEncryption(EncryptionService encryptionService) {
+            this.passwordAfter = encryptionService.encrypt(passwordAfter);
+            this.passwordBefore = encryptionService.encrypt(passwordBefore);
+        }
+
+        @Builder
+        public ChangePasswordRequest(String email,
+                                     @NotBlank(message = "비밀번호를 입력해주세요.") @Size(min = 8, max = 20, message = "비밀번호는 8자 이상 20자 이하로 입력해주세요.") String passwordAfter,
+                                     String passwordBefore) {
+            this.email = email;
+            this.passwordAfter = passwordAfter;
+            this.passwordBefore = passwordBefore;
+        }
     }
 
 }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import static com.resell.resell.common.utils.constants.UserConstants.AUTH_STATUS;
 import static com.resell.resell.common.utils.constants.UserConstants.USER_ID;
 import static com.resell.resell.controller.dto.UserDto.LoginRequest;
+import static com.resell.resell.controller.dto.UserDto.UserInfoDto;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class SessionLoginService {
 
     private final EncryptionService encryptionService;
 
-    
+
     @Transactional(readOnly = true)
     public void existByEmailAndPassword(LoginRequest loginRequest) {
         loginRequest.passwordEncryption(encryptionService);
@@ -52,6 +53,12 @@ public class SessionLoginService {
 
     public void logout() {
         session.removeAttribute(USER_ID);
+    }
+
+    @Transactional(readOnly = true)
+    public UserInfoDto getCurrentUser(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("존재하지 않는 사용자 입니다.")).toUserInfoDto();
     }
 
 }

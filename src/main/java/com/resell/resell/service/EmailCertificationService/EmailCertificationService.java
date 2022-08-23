@@ -3,6 +3,7 @@ package com.resell.resell.service.EmailCertificationService;
 import com.resell.resell.common.utils.certification.email.EmailContentTemplate;
 import com.resell.resell.common.utils.properties.AppProperties;
 import com.resell.resell.dao.EmailCertificationDao;
+import com.resell.resell.exception.user.AuthenticationNumberMismatchException;
 import com.resell.resell.exception.user.TokenExpiredException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +16,7 @@ import java.util.UUID;
 import static com.resell.resell.common.utils.certification.RandomNumberGeneration.makeRandomNumber;
 import static com.resell.resell.common.utils.certification.email.EmailConstants.TITLE_CERTIFICATION;
 import static com.resell.resell.common.utils.certification.email.EmailConstants.TITLE_EMAIL_CHECK;
+import static com.resell.resell.controller.dto.UserDto.EmailCertificationRequest;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -80,6 +82,19 @@ public class EmailCertificationService {
         return !(emailVerificationDao.hasKey(email) &&
                 emailVerificationDao.getEmailCertification(email)
                         .equals(token));
+    }
+
+    public void verifyEmail(EmailCertificationRequest requestDto) {
+        if (isVerify(requestDto)) {
+            throw new AuthenticationNumberMismatchException("인증번호가 일치하지 않습니다.");
+        }
+        emailCertificationNumberDao.removeEmailCertification(requestDto.getEmail());
+    }
+
+    private boolean isVerify(EmailCertificationRequest requestDto) {
+        return !(emailCertificationNumberDao.hasKey(requestDto.getEmail()) &&
+                emailCertificationNumberDao.getEmailCertification(requestDto.getEmail())
+                        .equals(requestDto.getCertificationNumber()));
     }
 
 }
