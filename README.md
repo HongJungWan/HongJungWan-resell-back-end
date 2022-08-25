@@ -99,7 +99,7 @@
 
 ### DB ERD, 22-08-25 기준
 
-![](../../여름방학 프로젝트/개인프로젝트 자료/readme01.png)
+<img src="src/main/resources/static/images/readme01.png">
 
 <br/><br/>
 
