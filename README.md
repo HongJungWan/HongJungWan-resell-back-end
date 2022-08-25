@@ -99,7 +99,7 @@
 
 ### DB ERD, 22-08-25 기준
 
-<img src="src/main/resources/static/images/readme01.png">
+![readme01](https://user-images.githubusercontent.com/76596316/186622159-1330e551-48d1-4954-9c8f-f7d77dc11fd2.png)
 
 <br/><br/>
 
