@@ -1,8 +1,8 @@
 # Resell
 
-### 📦 온라인 중고 거래 API 서버
+### 📦 Resell API 서버
 
-> 사기 방지와 가품 검증을 제공하는 온라인 중고 거래 API 서버
+> 사기 방지와 가품 검증을 제공하는 Resell API 서버
 
 <br/><br/>
 
@@ -41,11 +41,11 @@
 
 ### ⚔ 개발 목표
 
-중고거래 시장이 성장한 만큼 사기 수법도 더욱 치밀해지고 있는 점을 고려하여, <br/><br/>
+e커머스 시장이 성장한 만큼 사기 수법도 더욱 치밀해지고 있는 점을 고려하여, <br/><br/>
 
 1️⃣ 중고 제품 **가품 검증** <br/>
 2️⃣ 유저 간 **사기 방지** <br/>
-3️⃣ 클라이언트는 프로토타입으로 제작, **API 서버 개발**에 집중
+3️⃣ 클라이언트는 와이어프레임으로 대체, **API 서버 개발**에 집중
 
 <br/><br/>
 
@@ -75,11 +75,9 @@
 
 ### Resell API GUIDE
 
-작성 중 ...
-
 <br/><br/>
 
-### 📄 프로토타입
+### 📄 와이어프레임
 
 작성 중 ...
 
@@ -121,11 +119,13 @@ Web 개발 환경
 
 <br/>
 
-📄 [요구사항 명세서](https://velog.io/@daydream/ReSeller-Project-%EC%A3%BC%EC%9A%94-API)
+📄 [스케일 업 vs 스케일 아웃](https://velog.io/@daydream/ReSeller-Project-%EC%8A%A4%EC%BC%80%EC%9D%BC-%EC%97%85-vs-%EC%8A%A4%EC%BC%80%EC%9D%BC-%EC%95%84%EC%9B%83)
+
+📄 [Spring Mail AuthenticationFailedException](https://velog.io/@daydream/ReSeller-Project-Spring-Mail-AuthenticationFailedException-%ED%95%B4%EA%B2%B0)
 
 📄 [Spring Rest Docs를 프로젝트에 도입해 보자](https://velog.io/@daydream/ReSeller-Project-Spring-Rest-Docs%EB%A5%BC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-%EB%8F%84%EC%9E%85%ED%95%B4-%EB%B3%B4%EC%9E%90)
 
-📄 [Spring Mail AuthenticationFailedException](https://velog.io/@daydream/ReSeller-Project-Spring-Mail-AuthenticationFailedException-%ED%95%B4%EA%B2%B0)
+📄 [요구사항 명세서](https://velog.io/@daydream/ReSeller-Project-%EC%A3%BC%EC%9A%94-API)
 
 <br/><br/>
 
