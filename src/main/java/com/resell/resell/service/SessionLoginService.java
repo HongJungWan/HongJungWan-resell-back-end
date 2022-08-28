@@ -1,5 +1,6 @@
 package com.resell.resell.service;
 
+import com.resell.resell.domain.users.common.UserLevel;
 import com.resell.resell.domain.users.user.User;
 import com.resell.resell.domain.users.user.UserRepository;
 import com.resell.resell.exception.user.UserNotFoundException;
@@ -53,6 +54,14 @@ public class SessionLoginService {
 
     public void logout() {
         session.removeAttribute(USER_ID);
+    }
+
+    public String getLoginUser() {
+        return (String) session.getAttribute(USER_ID);
+    }
+
+    public UserLevel getUserLevel() {
+        return (UserLevel) session.getAttribute(AUTH_STATUS);
     }
 
     @Transactional(readOnly = true)
