@@ -2,7 +2,10 @@ package com.resell.resell.controller;
 
 import com.resell.resell.common.utils.annotation.CurrentUser;
 import com.resell.resell.common.utils.annotation.LoginCheck;
+import com.resell.resell.controller.dto.AddressDto;
 import com.resell.resell.controller.dto.UserDto;
+import com.resell.resell.domain.addressBook.Address;
+import com.resell.resell.domain.users.common.Account;
 import com.resell.resell.service.EmailCertificationService.EmailCertificationService;
 import com.resell.resell.service.SessionLoginService;
 import com.resell.resell.service.UserService;
@@ -11,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 import static com.resell.resell.common.utils.constants.ResponseConstants.CREATED;
 import static com.resell.resell.controller.dto.UserDto.*;
@@ -98,4 +102,42 @@ public class UserApiController {
         userService.updatePassword(email, requestDto);
     }
     
+    @LoginCheck
+    @GetMapping("/account")
+    public ResponseEntity<Account> getAccountResource(@CurrentUser String email) {
+        Account account = userService.getAccount(email);
+        return ResponseEntity.ok(account);
+    }
+
+    @LoginCheck
+    @PatchMapping("/account")
+    public void changeAccount(@CurrentUser String email, @RequestBody Account account) {
+        userService.updateAccount(email, account);
+    }
+
+    @LoginCheck
+    @PostMapping("/addressBook")
+    public void addAddressBook(@CurrentUser String email, @RequestBody AddressDto.SaveRequest saveRequest) {
+        userService.addAddress(email, saveRequest);
+    }
+
+    @LoginCheck
+    @GetMapping("/addressBook")
+    public ResponseEntity<List<Address>> getAddressBookResource(@CurrentUser String email) {
+        List<Address> addressList = userService.getAddressBook(email);
+        return ResponseEntity.ok(addressList);
+    }
+
+    @LoginCheck
+    @DeleteMapping("/addressBook")
+    public void deleteAddressBook(@CurrentUser String email, @RequestBody AddressDto.IdRequest idRequest) {
+        userService.deleteAddress(email, idRequest);
+    }
+
+    @LoginCheck
+    @PatchMapping("/addressBook")
+    public void updateAddressBook(@RequestBody AddressDto.SaveRequest requestDto) {
+        userService.updateAddress(requestDto);
+    }
+
 }
