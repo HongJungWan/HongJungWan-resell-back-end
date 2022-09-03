@@ -119,6 +119,10 @@ Web 개발 환경
 
 <br/>
 
+📄 [세션 스토리지로 어떤 것이 더 적합한가 ❓](https://velog.io/@daydream/ReSeller-Project-%EC%84%B8%EC%85%98-%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80%EB%A1%9C-%EC%96%B4%EB%96%A4-%EA%B2%83%EC%9D%B4-%EB%8D%94-%EC%A0%81%ED%95%A9%ED%95%9C%EA%B0%80-Redis-VS-Memcached)
+
+📄 [Scale out 확장 구조에서 Session 불일치 문제를 어떻게 다뤄야 할까 🤔](https://velog.io/@daydream/ReSeller-Project-%EB%8B%A4%EC%A4%91-%EC%84%9C%EB%B2%84-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-Session-%EB%B6%88%EC%9D%BC%EC%B9%98-%EB%AC%B8%EC%A0%9C%EB%A5%BC-%EC%96%B4%EB%96%BB%EA%B2%8C-%EB%8B%A4%EB%A4%84%EC%95%BC-%ED%95%A0%EA%B9%8C)
+
 📄 [스케일 업 vs 스케일 아웃](https://velog.io/@daydream/ReSeller-Project-%EC%8A%A4%EC%BC%80%EC%9D%BC-%EC%97%85-vs-%EC%8A%A4%EC%BC%80%EC%9D%BC-%EC%95%84%EC%9B%83)
 
 📄 [Spring Mail AuthenticationFailedException](https://velog.io/@daydream/ReSeller-Project-Spring-Mail-AuthenticationFailedException-%ED%95%B4%EA%B2%B0)
