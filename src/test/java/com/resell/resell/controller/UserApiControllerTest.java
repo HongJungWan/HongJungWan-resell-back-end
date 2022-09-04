@@ -34,6 +34,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -312,5 +313,56 @@ class UserApiControllerTest {
                         fieldWithPath("certificationNumber").ignored()
                 )));
     }
+
+    @Test
+    @DisplayName("비밀번호 찾기 -> 인증번호 일치 -> 이메일 인증 성공")
+    void emailCertification_successful() throws Exception {
+        EmailCertificationRequest requestDto = EmailCertificationRequest.builder()
+                .email("hjw43ok@hs.ac.kr")
+                .certificationNumber("123456")
+                .build();
+
+        doNothing().when(emailCertificationService).verifyEmail(requestDto);
+
+        mockMvc.perform(post("/users/email-certification/confirms")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("users/certification/email/successful", requestFields(
+                        fieldWithPath("email").type(JsonFieldType.STRING)
+                                .description("비밀번호 찾기를 원하는 이메일"),
+                        fieldWithPath("certificationNumber").type(JsonFieldType.STRING)
+                                .description("사용자가 입력한 인증번호")
+                )));
+    }
+
+    @Test
+    @DisplayName("비밀번호 찾기 -> 인증이 완료 -> 비밀번호 변경")
+    void changePasswordByForget() throws Exception {
+        ChangePasswordRequest requestDto = ChangePasswordRequest.builder()
+                .email("hjw43ok@hs.ac.kr")
+                .passwordAfter("test12345")
+                .passwordBefore(null)
+                .build();
+
+        doNothing().when(userService).updatePasswordByForget(requestDto);
+
+        mockMvc.perform(patch("/users/forget/password")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("users/forgetPassword/updatePassword", requestFields(
+                        fieldWithPath("email").type(JsonFieldType.STRING)
+                                .description("비밀번호를 변경할 회원 ID(email)"),
+                        fieldWithPath("passwordAfter").type(JsonFieldType.STRING).description("변경할 비밀번호"),
+                        fieldWithPath("passwordBefore").ignored()
+                )))
+        ;
+    }
+
 
 }
