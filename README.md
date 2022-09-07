@@ -129,6 +129,10 @@ Web 개발 환경
 
 📄 [Spring Rest Docs를 프로젝트에 도입해 보자](https://velog.io/@daydream/ReSeller-Project-Spring-Rest-Docs%EB%A5%BC-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8%EC%97%90-%EB%8F%84%EC%9E%85%ED%95%B4-%EB%B3%B4%EC%9E%90)
 
+📄 [Redis 설치 및 기본 명령어](https://velog.io/@daydream/Redis-%EC%84%A4%EC%B9%98-%EB%B0%8F-%EA%B8%B0%EB%B3%B8-%EB%AA%85%EB%A0%B9%EC%96%B4)
+
+📄 [Mysql Workbench 8.0.28, Reverse Engineering 툴로 ERD 추출 시, 1:1 관계 👉 1:N 관계로 인식](https://velog.io/@daydream/ReSeller-Project-Mysql-Workbench-8.0.28-Reverse-Engineering-%ED%88%B4%EB%A1%9C-ERD-%EC%B6%94%EC%B6%9C-%EC%8B%9C-11-%EA%B4%80%EA%B3%84-1N-%EA%B4%80%EA%B3%84%EB%A1%9C-%EC%9D%B8%EC%8B%9D)
+
 📄 [요구사항 명세서](https://velog.io/@daydream/ReSeller-Project-%EC%A3%BC%EC%9A%94-API)
 
 <br/><br/>
