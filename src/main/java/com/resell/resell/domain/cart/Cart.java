@@ -18,8 +18,12 @@ public class Cart {
     @Id
     @GeneratedValue
     private Long id;
-    
+
     @OneToMany(mappedBy = "cart", orphanRemoval = true)
     private Set<CartProduct> wishList = new HashSet<>();
+
+    public void addCartProducts(CartProduct cartItem) {
+        wishList.add(cartItem);
+    }
 
 }
