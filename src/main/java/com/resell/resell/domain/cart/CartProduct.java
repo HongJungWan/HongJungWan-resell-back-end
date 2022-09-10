@@ -1,5 +1,7 @@
 package com.resell.resell.domain.cart;
 
+import com.resell.resell.controller.dto.ProductDto;
+import com.resell.resell.controller.dto.ProductDto.WishItemResponse;
 import com.resell.resell.domain.product.Product;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -36,5 +38,18 @@ public class CartProduct {
         this.cart = cart;
         this.product = product;
     }
-    
+
+    public Long getProductId() {
+        return product.getId();
+    }
+
+    public WishItemResponse toWishItemDto() {
+        return WishItemResponse.builder()
+                .id(this.id)
+                .productId(product.getId())
+                .nameKor(product.getNameKor())
+                .nameEng(product.getNameEng())
+                .build();
+    }
+
 }
