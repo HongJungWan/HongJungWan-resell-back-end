@@ -3,6 +3,8 @@ package com.resell.resell.domain.users.user;
 import com.resell.resell.controller.dto.UserDto.FindUserResponse;
 import com.resell.resell.domain.addressBook.Address;
 import com.resell.resell.domain.addressBook.AddressBook;
+import com.resell.resell.domain.cart.Cart;
+import com.resell.resell.domain.cart.CartProduct;
 import com.resell.resell.domain.users.common.Account;
 import com.resell.resell.domain.users.common.UserBase;
 import com.resell.resell.domain.users.common.UserLevel;
@@ -22,16 +24,21 @@ public class User extends UserBase {
 
     private String nickname;
     private String phone;
-
     @Embedded // 값 타입을 사용하는 곳에 표시
     private Account account;
     private Long point;
     private LocalDateTime nicknameModifiedDate;
     private UserStatus userStatus;
 
+    // User Entity 삭제 시, 참조가 끊어진 연관된 AddressBook Entity 삭제
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "ADDRESSBOOK_ID")
     private AddressBook addressBook;
+
+    // User Entity 삭제 시, 참조가 끊어진 연관된 Cart Entity 삭제
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "CART_ID")
+    private Cart cart;
 
     public void updateUserLevel() {
         this.userLevel = UserLevel.AUTH;
@@ -83,6 +90,17 @@ public class User extends UserBase {
 
     public void deleteAddress(Address address) {
         this.addressBook.deleteAddress(address);
+    }
+
+    public void addCartItem(CartProduct cartItem) {
+        cart.addCartProducts(cartItem);
+    }
+
+    public boolean checkCartItemDuplicate(CartProduct cartItem) {
+        return cart.getWishList()
+                .stream()
+                .map(cartProduct -> cartProduct.getProduct())
+                .anyMatch(v -> v.getId() == cartItem.getProductId());
     }
 
 }
