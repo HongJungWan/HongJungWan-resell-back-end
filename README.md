@@ -110,6 +110,8 @@ Web 개발 환경
 
 <br/>
 
+📄 [반복되는 부가기능을 공통적으로 처리해 보자](https://velog.io/@daydream/ReSeller-Project-%EB%B0%98%EB%B3%B5%EB%90%98%EB%8A%94-%EB%B6%80%EA%B0%80%EA%B8%B0%EB%8A%A5%EC%9D%84-%EA%B3%B5%ED%86%B5%EC%A0%81%EC%9C%BC%EB%A1%9C-%EC%B2%98%EB%A6%AC%ED%95%B4-%EB%B3%B4%EC%9E%90)
+
 📄 [Stateless한 HTTP가 로그인하는 방법](https://velog.io/@daydream/ReSeller-Project-Stateless%ED%95%9C-HTTP%EA%B0%80-%EB%A1%9C%EA%B7%B8%EC%9D%B8%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95)
 
 📄 [세션 스토리지로 어떤 것이 더 적합한가 ❓](https://velog.io/@daydream/ReSeller-Project-%EC%84%B8%EC%85%98-%EC%8A%A4%ED%86%A0%EB%A6%AC%EC%A7%80%EB%A1%9C-%EC%96%B4%EB%96%A4-%EA%B2%83%EC%9D%B4-%EB%8D%94-%EC%A0%81%ED%95%A9%ED%95%9C%EA%B0%80-Redis-VS-Memcached)
