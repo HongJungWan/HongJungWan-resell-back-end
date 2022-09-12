@@ -77,7 +77,24 @@ public class ProductDto {
                     .sizeGap(this.sizeGap)
                     .build();
         }
+    }
 
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class WishItemResponse {
+
+        private Long id;
+        private Long productId;
+        private String nameKor;
+        private String nameEng;
+
+        @Builder
+        public WishItemResponse(Long id, Long productId, String nameKor, String nameEng) {
+            this.id = id;
+            this.productId = productId;
+            this.nameKor = nameKor;
+            this.nameEng = nameEng;
+        }
     }
 
 }
