@@ -1,7 +1,10 @@
 package com.resell.resell.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.resell.resell.controller.dto.AddressDto;
 import com.resell.resell.controller.dto.UserDto.*;
+import com.resell.resell.domain.addressBook.Address;
+import com.resell.resell.domain.users.common.Account;
 import com.resell.resell.domain.users.common.UserLevel;
 import com.resell.resell.service.EmailCertificationService.EmailCertificationService;
 import com.resell.resell.service.SessionLoginService;
@@ -25,6 +28,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static com.resell.resell.common.utils.constants.UserConstants.USER_ID;
@@ -364,5 +369,31 @@ class UserApiControllerTest {
         ;
     }
 
+    @Test
+    @DisplayName("비밀번호 변경 -> 이전 비밀번호 일치 -> 비밀번호 변경 성공")
+    void changePassword_successful() throws Exception {
+        ChangePasswordRequest requestDto = ChangePasswordRequest.builder()
+                .email("hjw43ok@hs.ac.kr")
+                .passwordAfter("test12345")
+                .passwordBefore("newPassword1234")
+                .build();
+
+        String currentUer = "hjw43ok@hs.ac.kr";
+
+        doNothing().when(userService).updatePassword(currentUer, requestDto);
+
+        mockMvc.perform(patch("/users/password")
+                        .content(objectMapper.writeValueAsString(requestDto))
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("users/changeUserInfo/password/successful", requestFields(
+                        fieldWithPath("email").type(JsonFieldType.STRING)
+                                .description("비밀번호 변경을 원하는 회원 ID(email"),
+                        fieldWithPath("passwordAfter").type(JsonFieldType.STRING).description("변경할 비밀번호"),
+                        fieldWithPath("passwordBefore").type(JsonFieldType.STRING).description("이전 비밀번호")
+                )));
+    }
 
 }
