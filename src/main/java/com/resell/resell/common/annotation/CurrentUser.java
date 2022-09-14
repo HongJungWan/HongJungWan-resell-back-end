@@ -1,4 +1,4 @@
-package com.resell.resell.common.utils.annotation;
+package com.resell.resell.common.annotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
