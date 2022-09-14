@@ -1,4 +1,4 @@
-package com.resell.resell.common.utils.annotation;
+package com.resell.resell.common.annotation;
 
 import com.resell.resell.domain.users.common.UserLevel;
 
