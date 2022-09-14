@@ -1,6 +1,6 @@
-package com.resell.resell.common.utils.interceptor;
+package com.resell.resell.common.interceptor;
 
-import com.resell.resell.common.utils.annotation.LoginCheck;
+import com.resell.resell.common.annotation.LoginCheck;
 import com.resell.resell.domain.users.common.UserLevel;
 import com.resell.resell.exception.user.NotAuthorizedException;
 import com.resell.resell.exception.user.UnauthenticatedUserException;
