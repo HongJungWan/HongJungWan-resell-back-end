@@ -1,6 +1,6 @@
-package com.resell.resell.common.utils.config;
+package com.resell.resell.common.config;
 
-import com.resell.resell.common.utils.annotation.CurrentUser;
+import com.resell.resell.common.annotation.CurrentUser;
 import com.resell.resell.service.SessionLoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
