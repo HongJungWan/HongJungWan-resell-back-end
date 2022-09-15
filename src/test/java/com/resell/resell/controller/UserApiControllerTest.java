@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static com.resell.resell.common.utils.constants.UserConstants.USER_ID;
+import static com.resell.resell.common.constants.UserConstants.USER_ID;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
@@ -394,6 +394,47 @@ class UserApiControllerTest {
                         fieldWithPath("passwordAfter").type(JsonFieldType.STRING).description("변경할 비밀번호"),
                         fieldWithPath("passwordBefore").type(JsonFieldType.STRING).description("이전 비밀번호")
                 )));
+    }
+
+    @Test
+    @DisplayName("환급 계좌 -> 환급 계좌 설정/변경")
+    void changeAccount() throws Exception {
+        Account account = new Account("국민", "1234", "홍정완");
+        String currentUser = "hjw43ok@hs.ac.kr";
+
+        doNothing().when(userService).updateAccount(currentUser, account);
+
+        mockMvc.perform(patch("/users/account")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(account)))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("users/changeUserInfo/account/change", requestFields(
+                        fieldWithPath("bankName").type(JsonFieldType.STRING).description("은행명"),
+                        fieldWithPath("accountNumber").type(JsonFieldType.STRING).description("계좌 번호"),
+                        fieldWithPath("depositor").type(JsonFieldType.STRING).description("예금주")
+                )));
+    }
+
+    @Test
+    @DisplayName("환급 계좌 -> [USER] 환급 계좌 정보 리턴")
+    void getAccountResource() throws Exception {
+        Account account = new Account("국민", "1234", "홍정완");
+
+        given(userService.getAccount(any())).willReturn(account);
+
+        mockMvc.perform(get("/users/account")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("users/changeUserInfo/account/Resource",
+                        responseFields(
+                                fieldWithPath("bankName").type(JsonFieldType.STRING).description("은행명"),
+                                fieldWithPath("accountNumber").type(JsonFieldType.STRING).description("계좌 번호"),
+                                fieldWithPath("depositor").type(JsonFieldType.STRING).description("예금주")
+                        )));
     }
 
 }
