@@ -1,6 +1,6 @@
 package com.resell.resell.controller;
 
-import com.resell.resell.common.utils.annotation.LoginCheck;
+import com.resell.resell.common.annotation.LoginCheck;
 import com.resell.resell.domain.users.common.UserLevel;
 import com.resell.resell.service.ProductService;
 import lombok.RequiredArgsConstructor;

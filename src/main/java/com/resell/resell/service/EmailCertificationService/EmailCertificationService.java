@@ -1,7 +1,7 @@
 package com.resell.resell.service.EmailCertificationService;
 
-import com.resell.resell.common.utils.certification.email.EmailContentTemplate;
-import com.resell.resell.common.utils.properties.AppProperties;
+import com.resell.resell.common.certification.email.EmailContentTemplate;
+import com.resell.resell.common.properties.AppProperties;
 import com.resell.resell.dao.EmailCertificationDao;
 import com.resell.resell.exception.user.AuthenticationNumberMismatchException;
 import com.resell.resell.exception.user.TokenExpiredException;
@@ -13,9 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
-import static com.resell.resell.common.utils.certification.RandomNumberGeneration.makeRandomNumber;
-import static com.resell.resell.common.utils.certification.email.EmailConstants.TITLE_CERTIFICATION;
-import static com.resell.resell.common.utils.certification.email.EmailConstants.TITLE_EMAIL_CHECK;
+import static com.resell.resell.common.certification.RandomNumberGeneration.makeRandomNumber;
+import static com.resell.resell.common.certification.email.EmailConstants.TITLE_CERTIFICATION;
+import static com.resell.resell.common.certification.email.EmailConstants.TITLE_EMAIL_CHECK;
 import static com.resell.resell.controller.dto.UserDto.EmailCertificationRequest;
 
 @Slf4j

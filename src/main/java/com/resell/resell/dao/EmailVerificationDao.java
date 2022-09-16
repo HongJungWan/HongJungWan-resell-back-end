@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import java.time.Duration;
 
-import static com.resell.resell.common.utils.certification.email.EmailConstants.LIMIT_TIME_EMAIL_VALIDATION;
-import static com.resell.resell.common.utils.certification.email.EmailConstants.PREFIX_VERIFICATION;
+import static com.resell.resell.common.certification.email.EmailConstants.LIMIT_TIME_EMAIL_VALIDATION;
+import static com.resell.resell.common.certification.email.EmailConstants.PREFIX_VERIFICATION;
 
 @RequiredArgsConstructor
 @Repository

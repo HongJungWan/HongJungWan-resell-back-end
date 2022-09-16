@@ -1,4 +1,4 @@
-package com.resell.resell.common.utils.certification;
+package com.resell.resell.common.certification;
 
 import java.util.Random;
 

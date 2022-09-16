@@ -1,4 +1,4 @@
-package com.resell.resell.common.utils.certification.email;
+package com.resell.resell.common.certification.email;
 
 public class EmailConstants {
     public static final String PREFIX_VERIFICATION = "email verification:";

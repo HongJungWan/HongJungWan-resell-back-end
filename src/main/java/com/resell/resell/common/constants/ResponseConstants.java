@@ -1,4 +1,4 @@
-package com.resell.resell.common.utils.constants;
+package com.resell.resell.common.constants;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

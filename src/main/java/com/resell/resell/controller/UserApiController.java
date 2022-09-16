@@ -1,7 +1,7 @@
 package com.resell.resell.controller;
 
-import com.resell.resell.common.utils.annotation.CurrentUser;
-import com.resell.resell.common.utils.annotation.LoginCheck;
+import com.resell.resell.common.annotation.CurrentUser;
+import com.resell.resell.common.annotation.LoginCheck;
 import com.resell.resell.controller.dto.AddressDto;
 import com.resell.resell.controller.dto.UserDto;
 import com.resell.resell.domain.addressBook.Address;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-import static com.resell.resell.common.utils.constants.ResponseConstants.CREATED;
+import static com.resell.resell.common.constants.ResponseConstants.CREATED;
 import static com.resell.resell.controller.dto.UserDto.*;
 
 @RequiredArgsConstructor
@@ -101,7 +101,7 @@ public class UserApiController {
     public void changePassword(@CurrentUser String email, @Valid @RequestBody ChangePasswordRequest requestDto) {
         userService.updatePassword(email, requestDto);
     }
-    
+
     @LoginCheck
     @GetMapping("/account")
     public ResponseEntity<Account> getAccountResource(@CurrentUser String email) {

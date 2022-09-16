@@ -1,4 +1,4 @@
-package com.resell.resell.common.utils.config;
+package com.resell.resell.common.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

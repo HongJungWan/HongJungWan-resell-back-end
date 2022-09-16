@@ -11,8 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
 
-import static com.resell.resell.common.utils.constants.UserConstants.AUTH_STATUS;
-import static com.resell.resell.common.utils.constants.UserConstants.USER_ID;
+import static com.resell.resell.common.constants.UserConstants.AUTH_STATUS;
+import static com.resell.resell.common.constants.UserConstants.USER_ID;
 import static com.resell.resell.controller.dto.UserDto.LoginRequest;
 import static com.resell.resell.controller.dto.UserDto.UserInfoDto;
 

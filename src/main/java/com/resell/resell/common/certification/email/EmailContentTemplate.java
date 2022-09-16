@@ -1,6 +1,6 @@
-package com.resell.resell.common.utils.certification.email;
+package com.resell.resell.common.certification.email;
 
-import static com.resell.resell.common.utils.certification.email.EmailConstants.DOMAIN_NAME;
+import static com.resell.resell.common.certification.email.EmailConstants.DOMAIN_NAME;
 
 public class EmailContentTemplate {
 

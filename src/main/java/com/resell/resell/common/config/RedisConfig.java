@@ -1,4 +1,4 @@
-package com.resell.resell.common.utils.config;
+package com.resell.resell.common.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +23,7 @@ public class RedisConfig {
 
     @Value("${spring.redis.session.port}")
     private int redisPort;
-    
+
     /*
      * 자바에서 레디스를 사용하기 위해서 레디스 클라이언트가 필요하다.
      * Spring Data Redis에서는 Jedis와 Lecttuce를 지원한다.

@@ -1,4 +1,4 @@
-package com.resell.resell.common.utils.properties;
+package com.resell.resell.common.properties;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
