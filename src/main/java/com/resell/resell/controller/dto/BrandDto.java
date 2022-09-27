@@ -35,6 +35,30 @@ public class BrandDto {
                     .thumbnailImagePath(this.thumbnailImagePath)
                     .build();
         }
+
     }
 
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor
+    @Builder
+    public static class BrandInfo {
+
+        private Long id;
+        private String nameKor;
+        private String nameEng;
+        private String originImagePath;
+        private String thumbnailImagePath;
+
+        public Brand toEntity() {
+            return Brand.builder()
+                    .id(this.id)
+                    .nameKor(this.nameKor)
+                    .nameEng(this.nameEng)
+                    .originImagePath(this.originImagePath)
+                    .thumbnailImagePath(this.thumbnailImagePath)
+                    .build();
+        }
+    }
+    
 }
