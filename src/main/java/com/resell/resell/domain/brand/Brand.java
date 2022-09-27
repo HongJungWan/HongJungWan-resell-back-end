@@ -1,5 +1,7 @@
 package com.resell.resell.domain.brand;
 
+import com.resell.resell.controller.dto.BrandDto;
+import com.resell.resell.controller.dto.BrandDto.BrandInfo;
 import com.resell.resell.domain.BaseTimeEntity;
 import lombok.*;
 
@@ -28,5 +30,15 @@ public class Brand extends BaseTimeEntity {
     private String originImagePath;
 
     private String thumbnailImagePath;
+
+    public BrandInfo toBrandInfo() {
+        return BrandInfo.builder()
+                .id(this.id)
+                .nameKor(this.nameKor)
+                .nameEng(this.nameEng)
+                .originImagePath(this.originImagePath)
+                .thumbnailImagePath(this.thumbnailImagePath)
+                .build();
+    }
 
 }
