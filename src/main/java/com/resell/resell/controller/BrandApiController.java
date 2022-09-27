@@ -1,6 +1,7 @@
 package com.resell.resell.controller;
 
 import com.resell.resell.common.annotation.LoginCheck;
+import com.resell.resell.controller.dto.BrandDto;
 import com.resell.resell.controller.dto.BrandDto.SaveRequest;
 import com.resell.resell.domain.users.common.UserLevel;
 import com.resell.resell.service.BrandService;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.List;
+
+import static com.resell.resell.controller.dto.BrandDto.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/brands")
@@ -25,5 +29,11 @@ public class BrandApiController {
         brandService.saveBrand(requestDto, brandImage);
 
     }
+
+    @GetMapping
+    public List<BrandInfo> getBrandInfos() {
+        return brandService.getBrandInfos();
+    }
+
 
 }
