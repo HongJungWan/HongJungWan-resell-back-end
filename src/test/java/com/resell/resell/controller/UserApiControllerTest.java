@@ -437,4 +437,107 @@ class UserApiControllerTest {
                         )));
     }
 
+
+    @Test
+    @DisplayName("주소록 -> 주소를 추가")
+    void addAddressBook() throws Exception {
+
+        String currentUser = "hjw43ok@hs.ac.kr";
+        AddressDto.SaveRequest requestDto = AddressDto.SaveRequest.builder()
+                .id(1L)
+                .addressName("회사")
+                .roadNameAddress("회사로 123")
+                .detailedAddress("456동 123호")
+                .postalCode("23456")
+                .build();
+
+        doNothing().when(userService).addAddress(currentUser, requestDto);
+
+        mockMvc.perform(post("/users/addressBook")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("users/changeUserInfo/addressBook/add/successful", requestFields(
+                        fieldWithPath("id").ignored(),
+                        fieldWithPath("addressName").type(JsonFieldType.STRING).description("주소록 이름"),
+                        fieldWithPath("roadNameAddress").type(JsonFieldType.STRING).description("도로명 주소"),
+                        fieldWithPath("detailedAddress").type(JsonFieldType.STRING).description("상세 주소"),
+                        fieldWithPath("postalCode").type(JsonFieldType.STRING).description("우편번호")
+                )));
+    }
+
+    @Test
+    @DisplayName("주소록 -> 회원 주소록 정보 리턴")
+    void getAddressBook() throws Exception {
+        List<Address> addressList = new ArrayList<>();
+        Address address = new Address(10L, "학교", "경기로", "111동 111호", "12345");
+        addressList.add(address);
+        given(userService.getAddressBook(any())).willReturn(addressList);
+
+        mockMvc.perform(get("/users/addressBook")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("users/changeUserInfo/addressBook/Resource", responseFields(
+                        fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("주소 ID[PK]"),
+                        fieldWithPath("[].addressName").type(JsonFieldType.STRING).description("주소 이름"),
+                        fieldWithPath("[].roadNameAddress").type(JsonFieldType.STRING)
+                                .description("도로명 주소"),
+                        fieldWithPath("[].detailedAddress").type(JsonFieldType.STRING).description("상세 주소"),
+                        fieldWithPath("[].postalCode").type(JsonFieldType.STRING).description("우편 번호")
+                )));
+    }
+
+    @Test
+    @DisplayName("주소록 -> 주소 삭제")
+    void deleteAddressBook() throws Exception {
+        String currentUser = "hjw43ok@hs.ac.kr";
+        AddressDto.IdRequest idRequest = AddressDto.IdRequest.builder()
+                .id(2L)
+                .build();
+
+        doNothing().when(userService).deleteAddress(currentUser, idRequest);
+
+        mockMvc.perform(delete("/users/addressBook")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(idRequest)))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("users/changeUserInfo/addressBook/delete", requestFields(
+                        fieldWithPath("id").type(JsonFieldType.NUMBER).description("삭제할 주소의 ID[PK]")
+                )));
+    }
+
+    @Test
+    @DisplayName("주소록 -> 주소 하나 수정")
+    void updateAddressBook() throws Exception {
+        AddressDto.SaveRequest requestDto = AddressDto.SaveRequest.builder()
+                .id(1L)
+                .addressName("학교")
+                .roadNameAddress("경기로")
+                .detailedAddress("111동 112호")
+                .postalCode("12346")
+                .build();
+
+        doNothing().when(userService).updateAddress(requestDto);
+
+        mockMvc.perform(patch("/users/addressBook")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(requestDto)))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("users/changeUserInfo/addressBook/update", requestFields(
+                        fieldWithPath("id").type(JsonFieldType.NUMBER).description("ID"),
+                        fieldWithPath("addressName").type(JsonFieldType.STRING).description("주소록 이름"),
+                        fieldWithPath("roadNameAddress").type(JsonFieldType.STRING).description("도로명 주소"),
+                        fieldWithPath("detailedAddress").type(JsonFieldType.STRING).description("상세 주소"),
+                        fieldWithPath("postalCode").type(JsonFieldType.STRING).description("우편번호")
+                )));
+    }
+    
 }
