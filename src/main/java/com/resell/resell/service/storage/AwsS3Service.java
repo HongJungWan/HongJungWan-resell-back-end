@@ -68,4 +68,12 @@ public class AwsS3Service implements StorageService {
         return upload(file, awsProperties.getBrandBucket());
     }
 
+    public void deleteBrandImage(String key) {
+        delete(awsProperties.getBrandBucket(), key);
+    }
+
+    public void delete(String bucket, String key) {
+        s3Client.deleteObject(bucket, key);
+    }
+
 }
