@@ -29,6 +29,12 @@ public class FileNameUtils {
         return fileName.substring(pos + 1);
     }
 
+    public static String getFileName(String path) {
+        int idx = path.lastIndexOf("/");
+
+        return path.substring(idx + 1);
+    }
+
     public static String toThumbnail(String src) {
         return src.replaceFirst("origin", "thumbnail");
     }
