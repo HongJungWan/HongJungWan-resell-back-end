@@ -27,6 +27,10 @@ public class BrandDto {
             this.thumbnailImagePath = thumbnailImagePath;
         }
 
+        public void deleteImagePath() {
+            setImagePath(null, null);
+        }
+
         public Brand toEntity() {
             return Brand.builder()
                     .nameKor(this.nameKor)
@@ -60,5 +64,5 @@ public class BrandDto {
                     .build();
         }
     }
-    
+
 }
