@@ -35,5 +35,20 @@ public class BrandApiController {
         return brandService.getBrandInfos();
     }
 
+    @LoginCheck(authority = UserLevel.ADMIN)
+    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{id}")
+    public void deleteBrand(@PathVariable Long id) {
+        brandService.deleteBrand(id);
+    }
+
+    @LoginCheck(authority = UserLevel.ADMIN)
+    @ResponseStatus(HttpStatus.OK)
+    @PatchMapping("/{id}")
+    public void updateBrand(@PathVariable Long id,
+                            @Valid @RequestPart SaveRequest requestDto,
+                            @RequestPart(required = false) MultipartFile brandImage) {
+        brandService.updateBrand(id, requestDto, brandImage);
+    }
 
 }
