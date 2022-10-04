@@ -1,6 +1,7 @@
 package com.resell.resell.domain.product;
 
 import com.resell.resell.domain.BaseTimeEntity;
+import com.resell.resell.domain.brand.Brand;
 import com.resell.resell.domain.product.common.Currency;
 import com.resell.resell.domain.product.common.SizeClassification;
 import com.resell.resell.domain.product.common.SizeUnit;
@@ -56,5 +57,9 @@ public class Product extends BaseTimeEntity {
     private String thumbnailImagePath;
 
     private String resizedImagePath;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "BRAND_ID")
+    private Brand brand;
 
 }
