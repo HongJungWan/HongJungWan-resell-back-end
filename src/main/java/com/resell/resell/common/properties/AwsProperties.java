@@ -48,6 +48,10 @@ public class AwsProperties {
         return credentials.getSecretKey();
     }
 
+    public String getProductBucket() {
+        return s3.getProduct();
+    }
+
     public String getRegionStatic() {
         return region.getStatics();
     }
