@@ -39,4 +39,8 @@ public class FileNameUtils {
         return src.replaceFirst("origin", "thumbnail");
     }
 
+    public static String toResized(String src) {
+        return src.replaceFirst("origin", "resized");
+    }
+
 }
