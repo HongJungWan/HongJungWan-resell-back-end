@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.resell.resell.controller.dto.BrandDto.*;
@@ -59,6 +60,11 @@ public class BrandService {
      * (기존 이미지 삭제 조건을 철저히 하여 스토리지 내 유령 파일을 만들지 않도록 한다.)
      */
 
+    @Transactional(readOnly = true)
+    public BrandInfo getBrandInfo(Long id) {
+        return brandRepository.findById(id).orElseThrow(() -> new BrandNotFoundException()).toBrandInfo();
+    }
+
     @CacheEvict(value = "brands", allEntries = true)
     @Transactional
     public void deleteBrand(Long id) {
@@ -96,6 +102,23 @@ public class BrandService {
         }
 
         savedBrand.update(updatedBrand);
+    }
+
+    @Transactional(readOnly = true)
+    public void checkBrandExist(BrandInfo productsBrand) {
+        Optional<Brand> savedBrand = brandRepository.findById(productsBrand.getId());
+        if (savedBrand.isEmpty() || !isSameName(savedBrand.get(), productsBrand)) {
+            throw new BrandNotFoundException();
+        }
+    }
+
+    private boolean isSameName(Brand savedBrand, BrandInfo productsBrand) {
+        if (!savedBrand.getNameEng().equals(productsBrand.getNameEng())) {
+            return false;
+        } else if (!savedBrand.getNameKor().equals(productsBrand.getNameKor())) {
+            return false;
+        }
+        return true;
     }
 
     private boolean checkDuplicateName(SaveRequest requestDto) {
