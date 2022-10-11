@@ -68,6 +68,10 @@ public class AwsS3Service implements StorageService {
         return upload(file, awsProperties.getBrandBucket());
     }
 
+    public String uploadProductImage(MultipartFile file) {
+        return upload(file, awsProperties.getProductBucket());
+    }
+
     public void deleteBrandImage(String key) {
         delete(awsProperties.getBrandBucket(), key);
     }
