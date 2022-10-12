@@ -27,12 +27,16 @@ public class BrandApiController {
     @PostMapping
     public void createBrand(@Valid @RequestPart SaveRequest requestDto, @RequestPart(required = false) MultipartFile brandImage) {
         brandService.saveBrand(requestDto, brandImage);
-
     }
 
     @GetMapping
     public List<BrandInfo> getBrandInfos() {
         return brandService.getBrandInfos();
+    }
+
+    @GetMapping("/{id}")
+    public BrandInfo getBrandInfo(@PathVariable Long id) {
+        return brandService.getBrandInfo(id);
     }
 
     @LoginCheck(authority = UserLevel.ADMIN)
