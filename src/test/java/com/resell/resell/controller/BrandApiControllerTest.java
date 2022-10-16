@@ -164,4 +164,57 @@ class BrandApiControllerTest {
 
     }
 
+    @Test
+    @DisplayName("특정 브랜드 조회")
+    void getBrandInfos() throws Exception {
+        BrandInfo brandInfo = createBrandInfo();
+        Long id = brandInfo.getId();
+        given(brandService.getBrandInfo(id)).willReturn(brandInfo);
+
+        mockMvc.perform(
+                        get("/brands/{id}", id)
+                                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("brands/get/details",
+                        pathParameters(
+                                parameterWithName("id").description("조회할 브랜드의 ID")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("브랜드 ID"),
+                                fieldWithPath("nameKor").type(JsonFieldType.STRING).description("브랜드 한글명"),
+                                fieldWithPath("nameEng").type(JsonFieldType.STRING).description("브랜드 영문명"),
+                                fieldWithPath("originImagePath").type(JsonFieldType.STRING).description("브랜드 원본 이미지 경로"),
+                                fieldWithPath("thumbnailImagePath").type(JsonFieldType.STRING).description("브랜드 썸네일 이미지 경로")
+                        )));
+
+    }
+
+    @Test
+    @DisplayName("브랜드 전체 조회")
+    void getBrandInfo() throws Exception {
+        List<BrandInfo> brandInfos = createBrandInfos();
+        FieldDescriptor[] brandInfo = new FieldDescriptor[]{
+                fieldWithPath("id").type(JsonFieldType.NUMBER).description("브랜드 ID"),
+                fieldWithPath("nameKor").type(JsonFieldType.STRING).description("브랜드 한글명"),
+                fieldWithPath("nameEng").type(JsonFieldType.STRING).description("브랜드 영문명"),
+                fieldWithPath("originImagePath").type(JsonFieldType.STRING).description("브랜드 원본 이미지 경로"),
+                fieldWithPath("thumbnailImagePath").type(JsonFieldType.STRING).description("브랜드 썸네일 이미지 경로")
+        };
+        given(brandService.getBrandInfos()).willReturn(brandInfos);
+
+        mockMvc.perform(
+                        get("/brands")
+                                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("brands/get",
+                        responseFields(
+                                fieldWithPath("[]").description("브랜드 정보 배열"))
+                                .andWithPrefix("[].", brandInfo)
+                ));
+    }
+
 }
