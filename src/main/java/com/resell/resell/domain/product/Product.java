@@ -1,5 +1,6 @@
 package com.resell.resell.domain.product;
 
+import com.resell.resell.controller.dto.ProductDto;
 import com.resell.resell.domain.BaseTimeEntity;
 import com.resell.resell.domain.brand.Brand;
 import com.resell.resell.domain.product.common.Currency;
@@ -12,6 +13,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+
+import static com.resell.resell.controller.dto.ProductDto.*;
 
 @Getter
 @Builder
@@ -61,5 +64,26 @@ public class Product extends BaseTimeEntity {
     @ManyToOne(optional = false)
     @JoinColumn(name = "BRAND_ID")
     private Brand brand;
+
+    public ProductInfoResponse toProductInfoResponse() {
+
+        return ProductInfoResponse.builder()
+                .id(this.id)
+                .nameKor(this.nameKor)
+                .nameEng(this.nameEng)
+                .modelNumber(this.modelNumber)
+                .color(this.color)
+                .releaseDate(this.releaseDate)
+                .releasePrice(this.releasePrice)
+                .currency(this.currency)
+                .sizeClassification(this.sizeClassification)
+                .sizeUnit(this.sizeUnit)
+                .minSize(this.minSize)
+                .maxSize(this.maxSize)
+                .sizeGap(this.sizeGap)
+                .resizedImagePath(this.resizedImagePath)
+                .brand(brand.toBrandInfo())
+                .build();
+    }
 
 }
