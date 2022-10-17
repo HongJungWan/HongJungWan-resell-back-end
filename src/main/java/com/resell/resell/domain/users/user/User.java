@@ -1,5 +1,6 @@
 package com.resell.resell.domain.users.user;
 
+import com.resell.resell.controller.dto.ProductDto;
 import com.resell.resell.controller.dto.UserDto.FindUserResponse;
 import com.resell.resell.domain.addressBook.Address;
 import com.resell.resell.domain.addressBook.AddressBook;
@@ -13,7 +14,10 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import static com.resell.resell.controller.dto.ProductDto.*;
 import static com.resell.resell.controller.dto.UserDto.UserInfoDto;
 
 @Getter
@@ -101,6 +105,13 @@ public class User extends UserBase {
                 .stream()
                 .map(cartProduct -> cartProduct.getProduct())
                 .anyMatch(v -> v.getId() == cartItem.getProductId());
+    }
+
+    public Set<WishItemResponse> getWishList() {
+        return cart.getWishList()
+                .stream()
+                .map(cartProduct -> cartProduct.toWishItemDto())
+                .collect(Collectors.toSet());
     }
 
 }
