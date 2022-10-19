@@ -48,8 +48,7 @@ public class BrandService {
     @Cacheable(value = "brands")
     public List<BrandInfo> getBrandInfos() {
         return brandRepository.findAll().stream()
-                .map(Brand::toBrandInfo)
-                .collect(Collectors.toList());
+                .map(brand -> brand.toBrandInfo()).collect(Collectors.toList());
     }
 
     /*
