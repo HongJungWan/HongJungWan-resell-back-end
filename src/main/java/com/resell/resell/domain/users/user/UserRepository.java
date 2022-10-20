@@ -1,10 +1,11 @@
 package com.resell.resell.domain.users.user;
 
+import com.resell.resell.domain.users.admin.AdminRepository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long>, AdminRepository {
 
     // 유저 이메일 찾기
     Optional<User> findByEmail(String email);
