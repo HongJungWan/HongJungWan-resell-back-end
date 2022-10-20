@@ -1,5 +1,6 @@
 package com.resell.resell.controller.dto;
 
+import com.resell.resell.domain.users.common.Account;
 import com.resell.resell.domain.users.common.UserLevel;
 import com.resell.resell.domain.users.common.UserStatus;
 import com.resell.resell.domain.users.user.User;
@@ -147,6 +148,80 @@ public class UserDto {
             this.email = email;
             this.passwordAfter = passwordAfter;
             this.passwordBefore = passwordBefore;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    public static class UserListResponse {
+
+        private Long id;
+        private String email;
+        private UserLevel userLevel;
+
+        @Builder
+        public UserListResponse(Long id, String email, UserLevel userLevel) {
+            this.id = id;
+            this.email = email;
+            this.userLevel = userLevel;
+        }
+    }
+
+    @Getter
+    public static class UserSearchCondition {
+
+        private Long id;
+        private String email;
+        private UserLevel userLevel;
+
+        @Builder
+        public UserSearchCondition(Long id, String email, UserLevel userLevel) {
+            this.id = id;
+            this.email = email;
+            this.userLevel = userLevel;
+        }
+    }
+
+    @Getter
+    public static class UserDetailsResponse {
+
+        private Long id;
+        private String email;
+        private String nickname;
+        private String phone;
+        private Account account;
+        private LocalDateTime modifiedDate;
+        private LocalDateTime createDate;
+        private UserLevel userLevel;
+        private UserStatus userStatus;
+
+        @Builder
+        public UserDetailsResponse(Long id, String email, String nickname, String phone,
+                                   Account account, LocalDateTime modifiedDate, LocalDateTime createDate,
+                                   UserLevel userLevel, UserStatus userStatus) {
+            this.id = id;
+            this.email = email;
+            this.nickname = nickname;
+            this.phone = phone;
+            this.account = account;
+            this.modifiedDate = modifiedDate;
+            this.createDate = createDate;
+            this.userLevel = userLevel;
+            this.userStatus = userStatus;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class UserBanRequest {
+
+        private Long id;
+        private UserStatus userStatus;
+
+        @Builder
+        public UserBanRequest(Long id, UserStatus userStatus) {
+            this.id = id;
+            this.userStatus = userStatus;
         }
     }
 
