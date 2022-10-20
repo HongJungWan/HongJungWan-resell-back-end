@@ -44,6 +44,14 @@ public class AwsS3Service implements StorageService {
                 .build();
     }
 
+    public String uploadBrandImage(MultipartFile file) {
+        return upload(file, awsProperties.getBrandBucket());
+    }
+
+    public String uploadProductImage(MultipartFile file) {
+        return upload(file, awsProperties.getProductBucket());
+    }
+
     public String upload(MultipartFile file, String bucket) {
         String fileName = file.getOriginalFilename();
         String convertedFileName = FileNameUtils.fileNameConvert(fileName);
@@ -64,20 +72,16 @@ public class AwsS3Service implements StorageService {
         return s3Client.getUrl(bucket, convertedFileName).toString();
     }
 
-    public String uploadBrandImage(MultipartFile file) {
-        return upload(file, awsProperties.getBrandBucket());
-    }
-
-    public String uploadProductImage(MultipartFile file) {
-        return upload(file, awsProperties.getProductBucket());
-    }
-
     public void deleteBrandImage(String key) {
         delete(awsProperties.getBrandBucket(), key);
+    }
+
+    public void deleteProductImage(String key) {
+        delete(awsProperties.getProductBucket(), key);
     }
 
     public void delete(String bucket, String key) {
         s3Client.deleteObject(bucket, key);
     }
-
+    
 }
