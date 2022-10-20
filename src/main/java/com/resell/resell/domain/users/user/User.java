@@ -1,6 +1,7 @@
 package com.resell.resell.domain.users.user;
 
 import com.resell.resell.controller.dto.ProductDto;
+import com.resell.resell.controller.dto.UserDto;
 import com.resell.resell.controller.dto.UserDto.FindUserResponse;
 import com.resell.resell.domain.addressBook.Address;
 import com.resell.resell.domain.addressBook.AddressBook;
@@ -112,6 +113,24 @@ public class User extends UserBase {
                 .stream()
                 .map(cartProduct -> cartProduct.toWishItemDto())
                 .collect(Collectors.toSet());
+    }
+
+    public UserDto.UserDetailsResponse toUserDetailsDto() {
+        return UserDto.UserDetailsResponse.builder()
+                .id(this.getId())
+                .email(this.email)
+                .nickname(this.nickname)
+                .phone(this.phone)
+                .account(this.account)
+                .createDate(this.getCreatedDate())
+                .modifiedDate(this.getModifiedDate())
+                .userLevel(this.userLevel)
+                .userStatus(this.userStatus)
+                .build();
+    }
+
+    public void updateUserStatus(UserStatus userStatus) {
+        this.userStatus = userStatus;
     }
 
 }
