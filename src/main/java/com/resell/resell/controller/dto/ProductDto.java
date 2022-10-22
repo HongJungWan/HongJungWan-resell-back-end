@@ -11,6 +11,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.resell.resell.controller.dto.BrandDto.*;
 
@@ -121,6 +123,42 @@ public class ProductDto {
             this.nameKor = nameKor;
             this.nameEng = nameEng;
         }
+    }
+
+    @Getter
+    @NoArgsConstructor
+    public static class IdRequest {
+
+        private Long id;
+
+        @Builder
+        public IdRequest(Long id) {
+            this.id = id;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor
+    @Builder
+    public static class ProductInfoResponse {
+
+        private Long id;
+        private String nameKor;
+        private String nameEng;
+        private String modelNumber;
+        private String color;
+        private LocalDate releaseDate;
+        private int releasePrice;
+        private Currency currency;
+        private SizeClassification sizeClassification;
+        private SizeUnit sizeUnit;
+        private double minSize;
+        private double maxSize;
+        private double sizeGap;
+        private String resizedImagePath;
+        private BrandInfo brand;
+
     }
 
 }
