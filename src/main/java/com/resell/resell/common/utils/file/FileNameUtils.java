@@ -35,8 +35,9 @@ public class FileNameUtils {
         return path.substring(idx + 1);
     }
 
+    // origin -> thumbnail 에서 잠깐 origin -> origin으로 변경, 일단 이렇게 변경 후 잘 동작, 좀 더 고민해보기.
     public static String toThumbnail(String src) {
-        return src.replaceFirst("origin", "thumbnail");
+        return src.replaceFirst("origin", "origin");
     }
 
     public static String toResized(String src) {
