@@ -19,6 +19,7 @@ public class AwsProperties {
     @Getter
     @Setter
     public static class Credentials {
+
         private String accessKey;
         private String secretKey;
     }
@@ -26,6 +27,7 @@ public class AwsProperties {
     @Getter
     @Setter
     public static class S3 {
+
         private String brand;
         private String product;
     }
@@ -33,11 +35,8 @@ public class AwsProperties {
     @Getter
     @Setter
     public static class Region {
-        private String statics;
-    }
 
-    public String getBrandBucket() {
-        return s3.getBrand();
+        private String statics;
     }
 
     public String getAccessKey() {
@@ -46,6 +45,10 @@ public class AwsProperties {
 
     public String getSecretKey() {
         return credentials.getSecretKey();
+    }
+
+    public String getBrandBucket() {
+        return s3.getBrand();
     }
 
     public String getProductBucket() {

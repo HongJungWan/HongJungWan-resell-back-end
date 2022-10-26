@@ -37,7 +37,6 @@ import java.util.Map;
  * 메소드가 성공적으로 완료되었을 때 캐시를 삭제하지만 beforeInvocation 설정으로 메소드 실행 전 캐시를 삭제할 수도 있다.
  */
 
-
 @RequiredArgsConstructor
 @EnableCaching
 @Configuration
@@ -45,6 +44,7 @@ public class CacheConfig {
 
     private final CacheProperties cacheProperties;
 
+    // Cache
     @Value("${spring.redis.cache.host}")
     private String redisHost;
 
@@ -53,11 +53,9 @@ public class CacheConfig {
 
     @Bean(name = "redisCacheConnectionFactory")
     public RedisConnectionFactory redisCacheConnectionFactory() {
-        LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisHost,
-                redisPort);
+        LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory(redisHost, redisPort);
         return lettuceConnectionFactory;
     }
-
 
     /*
      * Jackson2는 Java8의 LocalDate의 타입을 알지못해서적절하게 직렬화해주지 않는다.

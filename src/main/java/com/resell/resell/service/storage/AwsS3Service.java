@@ -35,8 +35,7 @@ public class AwsS3Service implements StorageService {
 
     @PostConstruct
     private void setS3Client() {
-        AWSCredentials credentials = new BasicAWSCredentials(awsProperties.getAccessKey(),
-                awsProperties.getSecretKey());
+        AWSCredentials credentials = new BasicAWSCredentials(awsProperties.getAccessKey(), awsProperties.getSecretKey());
 
         s3Client = AmazonS3ClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(credentials))
@@ -83,5 +82,5 @@ public class AwsS3Service implements StorageService {
     public void delete(String bucket, String key) {
         s3Client.deleteObject(bucket, key);
     }
-    
+
 }
