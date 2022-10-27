@@ -1,5 +1,7 @@
 package com.resell.resell.domain.trade;
 
+import com.resell.resell.controller.dto.TradeDto;
+import com.resell.resell.controller.dto.TradeDto.TradeBidResponse;
 import com.resell.resell.domain.BaseTimeEntity;
 import com.resell.resell.domain.addressBook.Address;
 import com.resell.resell.domain.product.Product;
@@ -58,7 +60,7 @@ public class Trade extends BaseTimeEntity {
     private String returnTrackingNumber;
 
     private String cancelReason;
-    
+
     @Builder
     public Trade(Long id, User publisher, User seller, User buyer,
                  Product product, TradeStatus status, Long price, double productSize,
@@ -73,6 +75,19 @@ public class Trade extends BaseTimeEntity {
         this.productSize = productSize;
         this.returnAddress = returnAddress;
         this.shippingAddress = shippingAddress;
+    }
+
+    public TradeBidResponse toTradeBidResponse() {
+        return TradeBidResponse.builder()
+                .tradeId(this.id)
+                .price(this.price)
+                .productId(product.getId())
+                .productSize(this.productSize)
+                .build();
+    }
+
+    public Long getPublisherId() {
+        return publisher.getId();
     }
 
 }
