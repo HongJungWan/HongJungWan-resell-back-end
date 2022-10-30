@@ -217,4 +217,65 @@ class BrandApiControllerTest {
                 ));
     }
 
+    @Test
+    @DisplayName("브랜드 정보 수정")
+    void updateBrand() throws Exception {
+        Long id = 1L;
+        SaveRequest updateRequest = createUpdateRequest();
+        MockMultipartFile requestDto = convertMultipartFile(updateRequest);
+        MockMultipartFile brandImage = createImageFile();
+
+        MockMultipartHttpServletRequestBuilder builder =
+                RestDocumentationRequestBuilders.fileUpload("/brands/{id}", id);
+        builder.with(request -> {
+            request.setMethod("PATCH");
+            return request;
+        });
+
+        mockMvc.perform(
+                        builder
+                                .file(requestDto)
+                                .file(brandImage)
+                                .characterEncoding("utf-8")
+                                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("brands/update",
+                        pathParameters(
+                                parameterWithName("id").description("수정할 브랜드의 ID")
+                        ),
+                        requestPartFields("requestDto",
+                                fieldWithPath("nameKor").type(JsonFieldType.STRING).description("수정할 브랜드의 한글명"),
+                                fieldWithPath("nameEng").type(JsonFieldType.STRING).description("수정할 브랜드의 영문명"),
+                                fieldWithPath("originImagePath").type(JsonFieldType.STRING).description("기존 브랜드 원본 이미지 경로(null이라면 기존 이미지 삭제)"),
+                                fieldWithPath("thumbnailImagePath").ignored()),
+                        requestParts(
+                                partWithName("requestDto").ignored(),
+                                partWithName("brandImage").description("수정할 브랜드의 이미지 파일").optional()
+                        )));
+
+    }
+
+
+    @Test
+    @DisplayName("브랜드 삭제")
+    void deleteBrand() throws Exception {
+        Long id = 1L;
+
+        doNothing().when(brandService).deleteBrand(id);
+
+        mockMvc.perform(
+                        delete("/brands/{id}", id))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document(
+                        "brands/delete",
+                        pathParameters(
+                                parameterWithName("id").description("삭제할 브랜드의 ID")
+                        )
+                ));
+    }
+
 }
