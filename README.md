@@ -72,7 +72,7 @@
 
 ### 📄 와이어프레임
 
-11월 예정
+![reseller-ui-10,31](https://user-images.githubusercontent.com/76596316/198891964-e350a5e7-279f-489a-bf88-c8ea0ff5493d.png)
 
 <br/><br/>
 
