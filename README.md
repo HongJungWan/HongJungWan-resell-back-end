@@ -1,8 +1,8 @@
-# Reseller
+# ReSeller
 
 ### 📦 Reseller API 서버
 
-> 사기 방지와 가품 검증을 제공하는 Reseller 거래 플랫폼 - **API 서버**
+> 대용량 트래픽을 고려한 Resell 거래 플랫폼 - **API 서버**
 
 <br/>
 
@@ -58,19 +58,13 @@
 
 <br/><br/>
 
-### 📄 정보 구조도
-
-11월 예정
-
-<br/><br/>
-
 ### 📄 Resell API GUIDE
 
 11월 예정
 
 <br/><br/>
 
-### 📄 와이어프레임
+### 📄 와이어 프레임
 
 ![reseller-ui-10,31](https://user-images.githubusercontent.com/76596316/198891964-e350a5e7-279f-489a-bf88-c8ea0ff5493d.png)
 
@@ -109,7 +103,7 @@ Web 개발 환경
 
 <br/><br/>
 
-### 🧐 프로젝트 진행 시, 고민했던 점들
+### 🧐 개발 시에 겪었던 기술적 Issue에 대한 접근 방법과 해결 과정
 
 <br/>
 
