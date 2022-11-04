@@ -1,5 +1,6 @@
 package com.resell.resell.controller.dto;
 
+import com.resell.resell.domain.addressBook.Address;
 import com.resell.resell.domain.users.common.Account;
 import com.resell.resell.domain.users.common.UserLevel;
 import com.resell.resell.domain.users.common.UserStatus;
@@ -12,6 +13,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDto {
 
@@ -87,8 +90,7 @@ public class UserDto {
         private UserLevel userLevel;
 
         @Builder
-        public UserInfoDto(String email, String nickname, String phone,
-                           UserLevel userLevel) {
+        public UserInfoDto(String email, String nickname, String phone, UserLevel userLevel) {
             this.email = email;
             this.nickname = nickname;
             this.phone = phone;
@@ -222,6 +224,20 @@ public class UserDto {
         public UserBanRequest(Long id, UserStatus userStatus) {
             this.id = id;
             this.userStatus = userStatus;
+        }
+    }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class TradeUserInfo {
+
+        private List<Address> addressBook = new ArrayList<>();
+        private Account account;
+
+        @Builder
+        public TradeUserInfo(List<Address> addressBook, Account account) {
+            this.addressBook = addressBook;
+            this.account = account;
         }
     }
 
