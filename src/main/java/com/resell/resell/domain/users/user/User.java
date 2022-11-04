@@ -3,6 +3,7 @@ package com.resell.resell.domain.users.user;
 import com.resell.resell.controller.dto.ProductDto;
 import com.resell.resell.controller.dto.UserDto;
 import com.resell.resell.controller.dto.UserDto.FindUserResponse;
+import com.resell.resell.controller.dto.UserDto.TradeUserInfo;
 import com.resell.resell.domain.addressBook.Address;
 import com.resell.resell.domain.addressBook.AddressBook;
 import com.resell.resell.domain.cart.Cart;
@@ -15,6 +16,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -131,6 +133,18 @@ public class User extends UserBase {
 
     public void updateUserStatus(UserStatus userStatus) {
         this.userStatus = userStatus;
+    }
+
+    public TradeUserInfo createTradeUserInfo() {
+
+        List<Address> addressList = addressBook.getAddressList()
+                .stream()
+                .collect(Collectors.toList());
+
+        return TradeUserInfo.builder()
+                .account(this.account)
+                .addressBook(addressList)
+                .build();
     }
 
 }
