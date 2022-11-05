@@ -30,8 +30,7 @@ public class Address {
     }
 
     @Builder
-    public Address(String addressName, String roadNameAddress, String detailedAddress,
-                   String postalCode) {
+    public Address(String addressName, String roadNameAddress, String detailedAddress, String postalCode) {
         this.addressName = addressName;
         this.roadNameAddress = roadNameAddress;
         this.detailedAddress = detailedAddress;
