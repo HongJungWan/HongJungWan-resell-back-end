@@ -1,7 +1,11 @@
 package com.resell.resell.controller.dto;
 
+import com.resell.resell.controller.dto.TradeDto.TradeBidResponse;
+import com.resell.resell.controller.dto.TradeDto.TradeCompleteInfo;
+import com.resell.resell.domain.brand.Brand;
 import com.resell.resell.domain.product.Product;
 import com.resell.resell.domain.product.common.Currency;
+import com.resell.resell.domain.product.common.OrderStandard;
 import com.resell.resell.domain.product.common.SizeClassification;
 import com.resell.resell.domain.product.common.SizeUnit;
 import lombok.*;
@@ -115,13 +119,15 @@ public class ProductDto {
         private Long productId;
         private String nameKor;
         private String nameEng;
+        private Brand brand;
 
         @Builder
-        public WishItemResponse(Long id, Long productId, String nameKor, String nameEng) {
+        public WishItemResponse(Long id, Long productId, String nameKor, String nameEng, Brand brand) {
             this.id = id;
             this.productId = productId;
             this.nameKor = nameKor;
             this.nameEng = nameEng;
+            this.brand = brand;
         }
     }
 
@@ -158,7 +164,34 @@ public class ProductDto {
         private double sizeGap;
         private String resizedImagePath;
         private BrandInfo brand;
+        private List<TradeBidResponse> saleBids = new ArrayList<>();
+        private List<TradeBidResponse> purchaseBids = new ArrayList<>();
+        private List<TradeCompleteInfo> tradeCompleteInfos = new ArrayList<>();
+    }
 
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ThumbnailResponse {
+
+        private Long id;
+        private String productThumbnailImagePath;
+        private String brandThumbnailImagePath;
+        private String nameKor;
+        private String nameEng;
+        private Long lowestPrice;
+    }
+
+    @Builder
+    @Getter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SearchCondition {
+
+        private String keyword;
+        private Long brandId;
+        private OrderStandard orderStandard;
     }
 
 }
