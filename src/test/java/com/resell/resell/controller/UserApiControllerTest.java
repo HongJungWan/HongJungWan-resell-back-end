@@ -81,7 +81,7 @@ class UserApiControllerTest {
     }
 
     @Test
-    @DisplayName("회원가입 -> 모든 유효성 검사 통과 > 회원가입 성공")
+    @DisplayName("회원가입 -> 모든 유효성 검사 통과 -> 회원가입 성공")
     void createUser_successful() throws Exception {
         SaveRequest saveRequest = SaveRequest.builder()
                 .email("hjw43ok@hs.ac.kr")
