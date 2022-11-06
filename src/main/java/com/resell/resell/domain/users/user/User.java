@@ -30,11 +30,16 @@ import static com.resell.resell.controller.dto.UserDto.UserInfoDto;
 public class User extends UserBase {
 
     private String nickname;
+
     private String phone;
+
     @Embedded // 값 타입을 사용하는 곳에 표시
     private Account account;
+
     private Long point;
+
     private LocalDateTime nicknameModifiedDate;
+
     private UserStatus userStatus;
 
     // User Entity 삭제 시, 참조가 끊어진 연관된 AddressBook Entity 삭제
@@ -80,15 +85,18 @@ public class User extends UserBase {
     }
 
     @Builder
-    public User(Long id, String email, String password, UserLevel userLevel, String nickname, String phone, LocalDateTime nicknameModifiedDate, UserStatus userStatus, Long point) {
+    public User(Long id, String email, String password, UserLevel userLevel, String nickname, String phone, LocalDateTime nicknameModifiedDate,
+                UserStatus userStatus, Long point, AddressBook addressBook, Cart cart) {
 
         super(id, email, password, userLevel);
         this.nickname = nickname;
         this.phone = phone;
         this.userLevel = userLevel;
         this.nicknameModifiedDate = nicknameModifiedDate;
+        this.addressBook = addressBook;
         this.userStatus = userStatus;
         this.point = point;
+        this.cart = cart;
     }
 
     public void createAddressBook(AddressBook addressBook) {
@@ -101,6 +109,10 @@ public class User extends UserBase {
 
     public void addCartItem(CartProduct cartItem) {
         cart.addCartProducts(cartItem);
+    }
+
+    public void createCart(Cart cart) {
+        this.cart = cart;
     }
 
     public boolean checkCartItemDuplicate(CartProduct cartItem) {
