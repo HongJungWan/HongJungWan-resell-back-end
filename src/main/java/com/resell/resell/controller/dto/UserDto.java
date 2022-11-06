@@ -1,6 +1,7 @@
 package com.resell.resell.controller.dto;
 
 import com.resell.resell.domain.addressBook.Address;
+import com.resell.resell.domain.cart.Cart;
 import com.resell.resell.domain.users.common.Account;
 import com.resell.resell.domain.users.common.UserLevel;
 import com.resell.resell.domain.users.common.UserStatus;
@@ -60,9 +61,11 @@ public class UserDto {
                     .phone(this.phone)
                     .userLevel(UserLevel.ADMIN)
                     .userStatus(UserStatus.NORMAL)
+                    .cart(new Cart())
                     .point(0L)
                     .build();
         }
+
     }
 
     @Getter
