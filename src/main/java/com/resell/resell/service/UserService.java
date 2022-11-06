@@ -5,6 +5,8 @@ import com.resell.resell.domain.addressBook.Address;
 import com.resell.resell.domain.addressBook.AddressBook;
 import com.resell.resell.domain.addressBook.AddressBookRepository;
 import com.resell.resell.domain.addressBook.AddressRepository;
+import com.resell.resell.domain.cart.Cart;
+import com.resell.resell.domain.cart.CartRepository;
 import com.resell.resell.domain.users.common.Account;
 import com.resell.resell.domain.users.user.User;
 import com.resell.resell.domain.users.user.UserRepository;
@@ -30,10 +32,16 @@ import static com.resell.resell.controller.dto.AddressDto.SaveRequest;
 public class UserService {
 
     private final UserRepository userRepository;
+
     private final EncryptionService encryptionService;
+
     private final EmailCertificationService emailCertificationService;
+
     private final AddressBookRepository addressBookRepository;
+
     private final AddressRepository addressRepository;
+
+    private final CartRepository cartRepository;
 
     @Transactional(readOnly = true)
     public boolean checkEmailDuplicate(String email) {
@@ -56,6 +64,7 @@ public class UserService {
         requestDto.passwordEncryption(encryptionService);
 
         User user = userRepository.save(requestDto.toEntity());
+        createRequiredInformation(user);
     }
 
     private void validToken(String token, String email) {
@@ -161,6 +170,11 @@ public class UserService {
         Address address = addressRepository.findById(addressId).orElseThrow();
         address.updateAddress(requestDto);
 
+    }
+
+    private void createRequiredInformation(User user) {
+        user.createCart(cartRepository.save(new Cart()));
+        user.createAddressBook(addressBookRepository.save(new AddressBook()));
     }
 
 }
