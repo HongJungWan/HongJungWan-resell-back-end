@@ -1,7 +1,10 @@
 package com.resell.resell.controller.dto;
 
 import com.resell.resell.controller.dto.UserDto.TradeUserInfo;
+import com.resell.resell.domain.trade.TradeStatus;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 public class TradeDto {
 
@@ -10,7 +13,7 @@ public class TradeDto {
     public static class TradeResource {
 
         private TradeUserInfo tradeUserInfo;
-        
+
         private ProductInfoByTrade ProductInfoByTrade;
 
         @Builder
@@ -55,6 +58,22 @@ public class TradeDto {
         private BrandDto.BrandInfo brand;
         private TradeBidResponse immediatePurchasePrice;
         private TradeBidResponse immediateSalePrice;
+    }
+    
+    @Getter
+    @NoArgsConstructor
+    public static class TradeCompleteInfo {
+
+        private double productSize;
+        private Long price;
+        private LocalDateTime completeTime;
+
+        @Builder
+        public TradeCompleteInfo(double productSize, Long price, LocalDateTime completeTime) {
+            this.productSize = productSize;
+            this.price = price;
+            this.completeTime = completeTime;
+        }
     }
 
 }
