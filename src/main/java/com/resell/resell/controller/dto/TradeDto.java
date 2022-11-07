@@ -6,6 +6,9 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+/**
+ * Dto를 Inner static class로 응집도 높게 관리
+ **/
 public class TradeDto {
 
     @Getter
@@ -59,7 +62,7 @@ public class TradeDto {
         private TradeBidResponse immediatePurchasePrice;
         private TradeBidResponse immediateSalePrice;
     }
-    
+
     @Getter
     @NoArgsConstructor
     public static class TradeCompleteInfo {
