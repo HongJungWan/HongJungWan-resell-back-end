@@ -1,0 +1,113 @@
+package com.resell.resell.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.resell.resell.controller.dto.ProductDto.IdRequest;
+import com.resell.resell.controller.dto.ProductDto.WishItemResponse;
+import com.resell.resell.domain.brand.Brand;
+import com.resell.resell.service.CartService;
+import com.resell.resell.service.SessionLoginService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
+import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
+import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfigurer.sharedHttpSession;
+
+@ExtendWith(RestDocumentationExtension.class)
+@WebMvcTest(CartApiController.class)
+@ActiveProfiles("test")
+@MockBean(JpaMetamodelMappingContext.class)
+public class CartApiControllerTest {
+
+    @MockBean
+    private CartService cartService;
+
+    @MockBean
+    private SessionLoginService sessionLoginService;
+
+    private MockMvc mockMvc;
+
+    @Autowired
+    ObjectMapper objectMapper;
+
+    @BeforeEach
+    public void setup(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
+                .apply(documentationConfiguration(restDocumentation))
+                .apply(sharedHttpSession())
+                .build();
+    }
+
+    private Set<WishItemResponse> createWishList() {
+        Set<WishItemResponse> set = new HashSet<>();
+
+        WishItemResponse wishItemResponse = WishItemResponse.builder()
+                .id(1L)
+                .nameKor("조던")
+                .nameEng("Jordan")
+                .productId(2L)
+                .brand(new Brand(3L, "나이키", "nike", "1234", "5678")).build();
+
+        set.add(wishItemResponse);
+
+        return set;
+    }
+
+    @Test
+    @DisplayName("카트 - 위시리스트 조회")
+    void getWishList() throws Exception {
+        Set<WishItemResponse> wishList = createWishList();
+        given(cartService.getWishList(any())).willReturn(wishList);
+
+        mockMvc.perform(get("/carts"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andDo(document("users/carts/getWishList", responseFields(
+                        fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("CartProduct ID"),
+                        fieldWithPath("[].productId").type(JsonFieldType.NUMBER).description("상품의 ID[PK]"),
+                        fieldWithPath("[].nameKor").type(JsonFieldType.STRING).description("상품 이름(한글)"),
+                        fieldWithPath("[].nameEng").type(JsonFieldType.STRING).description("상품 이름(영어"),
+                        fieldWithPath("[].brand.createdDate").type(JsonFieldType.VARIES)
+                                .description("브랜드 생성 날짜"),
+                        fieldWithPath("[].brand.modifiedDate").type(JsonFieldType.VARIES)
+                                .description("브랜드 정보 수정 날짜"),
+                        fieldWithPath("[].brand.id").type(JsonFieldType.NUMBER).description("브랜드 ID[PK]"),
+                        fieldWithPath("[].brand.nameKor").type(JsonFieldType.STRING)
+                                .description("브랜드 이름(한글)"),
+                        fieldWithPath("[].brand.nameEng").type(JsonFieldType.STRING)
+                                .description("브랜드 이름(영어)"),
+                        fieldWithPath("[].brand.originImagePath").type(JsonFieldType.STRING)
+                                .description("브랜드 이미지 경로"),
+                        fieldWithPath("[].brand.thumbnailImagePath").type(JsonFieldType.STRING)
+                                .description("브랜드 이미지 경로(썸네일)")
+                )));
+    }
+
+}
