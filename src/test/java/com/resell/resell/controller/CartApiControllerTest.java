@@ -89,6 +89,7 @@ public class CartApiControllerTest {
         mockMvc.perform(get("/carts"))
                 .andDo(print())
                 .andExpect(status().isOk())
+
                 .andDo(document("users/carts/getWishList", responseFields(
                         fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("CartProduct ID"),
                         fieldWithPath("[].productId").type(JsonFieldType.NUMBER).description("상품의 ID[PK]"),
@@ -107,6 +108,46 @@ public class CartApiControllerTest {
                                 .description("브랜드 이미지 경로"),
                         fieldWithPath("[].brand.thumbnailImagePath").type(JsonFieldType.STRING)
                                 .description("브랜드 이미지 경로(썸네일)")
+                )));
+    }
+
+    @Test
+    @DisplayName("카트 - 위시리스트 상품 추가")
+    void addWishList() throws Exception {
+        String email = "hong43ok@gmail.com";
+        IdRequest idRequest = IdRequest.builder()
+                .id(1L).build();
+
+        doNothing().when(cartService).addWishList(email, idRequest);
+
+        mockMvc.perform(post("/carts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(idRequest)))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("users/carts/addWishList", requestFields(
+                        fieldWithPath("id").type(JsonFieldType.NUMBER).description("상품(Product)의 ID[PK]")
+                )));
+    }
+
+    @Test
+    @DisplayName("카트 - 위시리스트 등록된 상품 삭제")
+    void deleteWishList() throws Exception {
+        IdRequest idRequest = IdRequest.builder()
+                .id(1L).build();
+
+        doNothing().when(cartService).deleteWishList(idRequest);
+
+        mockMvc.perform(delete("/carts")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(idRequest)))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("users/carts/deleteWishList", requestFields(
+                        fieldWithPath("id").type(JsonFieldType.NUMBER)
+                                .description("카트상품(CartProduct)의 ID[PK]")
                 )));
     }
 
