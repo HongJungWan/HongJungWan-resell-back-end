@@ -54,17 +54,23 @@
 
 ### ⚙ 기능
 
+<br/>
+
 📄 [요구사항 명세서](https://velog.io/@daydream/ReSeller-Project-%EC%A3%BC%EC%9A%94-API)
 
 <br/><br/>
 
 ### 📄 Resell API GUIDE
 
-11월 예정
+<br/>
+
+[📄 Resell API GUIDE](https://hongjungwan.github.io/)
 
 <br/><br/>
 
 ### 📄 와이어 프레임
+
+<br/>
 
 ![reseller-ui-10,31](https://user-images.githubusercontent.com/76596316/198891964-e350a5e7-279f-489a-bf88-c8ea0ff5493d.png)
 
