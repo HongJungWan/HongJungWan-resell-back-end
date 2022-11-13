@@ -1,71 +1,11 @@
-= ReSell API guide
-Andy Wilkinson;
+= ReSeller API guide
 :doctype: book
 :icons: font
 :source-highlighter: highlightjs
 :toc: left
 :toclevels: 4
 :sectlinks:
-:operation-curl-request-title: Example request
 :operation-http-response-title: Example response
-
-[[overview_http_verbs]]
-== HTTP Methods
-
-RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its use of HTTP verbs.
-
-|===
-| Verb | Usage
-
-| `GET`
-| Used to retrieve a resource
-
-| `POST`
-| Used to create a new resource
-
-| `PATCH`
-| Used to update an existing resource, including partial updates
-
-| `DELETE`
-| Used to delete an existing resource
-|===
-
-[[overview_http_status_codes]]
-== HTTP status codes
-
-RESTful notes tries to adhere as closely as possible to standard HTTP and REST conventions in its use of HTTP status codes.
-
-|===
-| Status code | Usage
-
-| `200 OK`
-| The request completed successfully
-
-| `201 Created`
-| A new resource has been created successfully.
-The resource's URI is available from the response's
-`Location` header
-
-| `204 No Content`
-| An update to an existing resource has been applied successfully
-
-| `400 Bad Request`
-| The request was malformed.
-The response body will include an error providing further information
-
-| `401 Unauthorized`
-| The request has not been applied because it lacks valid authentication credentials for the target resource.
-
-| `403 Forbidden`
-| The server understood the request but refuses to authorize it.
-
-| `404 Not Found`
-| The requested resource did not exist
-
-| `409 Conflict`
-| The request could not be completed due to a conflict with the current state of the target resource.
-This code is used in situations where the user might be able to resolve the conflict and resubmit the request.
-|===
 
 == USER API
 
@@ -473,10 +413,6 @@ include::{snippets}/brands/update/http-response.adoc[]
 
 === 4. 브랜드 삭제
 
-**curl**
-
-include::{snippets}/brands/delete/curl-request.adoc[]
-
 **path-parameters**
 
 include::{snippets}/brands/delete/path-parameters.adoc[]
@@ -493,7 +429,67 @@ include::{snippets}/brands/delete/http-response.adoc[]
 
 == PRODUCT API
 
-=== 1. 상품 추가
+=== 1. 상품 조회
+
+---
+
+==== 상품 정보 조회
+
+**path-parameters**
+
+include::{snippets}/products/get/details/path-parameters.adoc[]
+
+**response-fields**
+
+include::{snippets}/products/get/details/response-fields.adoc[]
+
+**Example request**
+
+include::{snippets}/products/get/details/http-request.adoc[]
+
+**Example response**
+
+include::{snippets}/products/get/details/http-response.adoc[]
+
+---
+
+==== 조건 별 상품 전체 조회
+
+**request-parameters**
+
+include::{snippets}/products/get/request-parameters.adoc[]
+
+**response-fields**
+
+include::{snippets}/products/get/response-fields.adoc[]
+
+**Example request**
+
+include::{snippets}/products/get/http-request.adoc[]
+
+**Example response**
+
+include::{snippets}/products/get/http-response.adoc[]
+
+---
+
+==== 상품 정렬 기준 조회
+
+**response-fields**
+
+include::{snippets}/products/get/order-standards/response-fields.adoc[]
+
+**Example request**
+
+include::{snippets}/products/get/order-standards/http-request.adoc[]
+
+**Example response**
+
+include::{snippets}/products/get/order-standards/http-response.adoc[]
+
+---
+
+=== 2. 상품 추가
 
 **request-fields**
 
@@ -506,5 +502,161 @@ include::{snippets}/products/create/http-request.adoc[]
 **Example response**
 
 include::{snippets}/products/create/http-response.adoc[]
+
+---
+
+=== 3. 상품 정보 수정
+
+**request-fields**
+
+include::{snippets}/products/update/request-part-requestDto-fields.adoc[]
+
+**Example request**
+
+include::{snippets}/products/update/http-request.adoc[]
+
+**Example response**
+
+include::{snippets}/products/update/http-response.adoc[]
+
+---
+
+=== 4. 상품 삭제
+
+**path-parameters**
+
+include::{snippets}/products/delete/path-parameters.adoc[]
+
+**Example request**
+
+include::{snippets}/products/delete/http-request.adoc[]
+
+**Example response**
+
+include::{snippets}/products/delete/http-response.adoc[]
+
+== ADMIN API
+
+---
+
+==== 회원 전체 조회
+
+**response-fields**
+
+include::{snippets}/admin/get/findAll/response-fields.adoc[]
+
+**example request**
+
+include::{snippets}/admin/get/findAll/http-request.adoc[]
+
+**example response**
+
+include::{snippets}/admin/get/findAll/http-response.adoc[]
+
+---
+
+==== 회원 조회(IDX)
+
+**request-parameters**
+
+include::{snippets}/admin/get/findById/request-parameters.adoc[]
+
+**response-fields**
+
+include::{snippets}/admin/get/findById/response-fields.adoc[]
+
+**example request**
+
+include::{snippets}/admin/get/findById/http-request.adoc[]
+
+**example response**
+
+include::{snippets}/admin/get/findById/http-response.adoc[]
+
+---
+
+==== 회원 정지
+
+**example request**
+
+include::{snippets}/admin/ban/http-request.adoc[]
+
+**example response**
+
+include::{snippets}/admin/ban/http-response.adoc[]
+
+== CART API
+
+==== 장바구니 조회
+
+**response-fields**
+
+include::{snippets}/users/carts/getWishList/response-fields.adoc[]
+
+**Example request**
+
+include::{snippets}/users/carts/getWishList/http-request.adoc[]
+
+**Example response**
+
+include::{snippets}/users/carts/getWishList/http-response.adoc[]
+
+---
+
+==== 장바구니 추가
+
+**request-fields**
+
+include::{snippets}/users/carts/addWishList/request-fields.adoc[]
+
+**Example request**
+
+include::{snippets}/users/carts/addWishList/http-request.adoc[]
+
+**Example response**
+
+include::{snippets}/users/carts/addWishList/http-response.adoc[]
+
+---
+
+==== 장바구니 삭제
+
+**request-fields**
+
+include::{snippets}/users/carts/deleteWishList/request-fields.adoc[]
+
+**Example request**
+
+include::{snippets}/users/carts/deleteWishList/http-request.adoc[]
+
+**Example response**
+
+include::{snippets}/users/carts/deleteWishList/http-response.adoc[]
+
+---
+
+== TRADE API
+
+---
+
+==== 판매 또는 구매 입찰 시 - 필요한 정보 조회
+
+**path-parameters**
+
+include::{snippets}/trade/getResource/path-parameters.adoc[]
+
+**request-parameters**
+
+include::{snippets}/trade/getResource/request-parameters.adoc[]
+
+**example request**
+
+include::{snippets}/trade/getResource/http-request.adoc[]
+
+**Example response**
+
+include::{snippets}/trade/getResource/http-response.adoc[]
+
+include::{snippets}/trade/getResource/http-response.adoc[]
 
 ---
