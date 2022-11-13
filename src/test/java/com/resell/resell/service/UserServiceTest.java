@@ -44,10 +44,10 @@ class UserServiceTest {
 
     private SaveRequest createUserDto() {
         SaveRequest saveRequest = SaveRequest.builder()
-                .email("HongJungWan@test.com")
+                .email("hong43ok@gmail.com")
                 .password("test1234")
                 .phone("01077777777")
-                .nickname("GodHong")
+                .nickname("hong43ok")
                 .build();
 
         return saveRequest;
@@ -61,29 +61,29 @@ class UserServiceTest {
     @DisplayName("이메일 중복 -> 회원 가입 실패")
     void checkEmailDuplicate() {
         SaveRequest saveRequest = createUserDto();
-        when(userRepository.existsByEmail("HongJungWan@test.com")).thenReturn(true);
+        when(userRepository.existsByEmail("hong43ok@gmail.com")).thenReturn(true);
 
         assertThrows(DuplicateEmailException.class, () -> userService.save(saveRequest));
 
-        verify(userRepository, atLeastOnce()).existsByEmail("HongJungWan@test.com");
+        verify(userRepository, atLeastOnce()).existsByEmail("hong43ok@gmail.com");
     }
 
     @Test
     @DisplayName("닉네임 중복 -> 회원 가입 실패")
     void checkNicknameDuplicate() {
         SaveRequest saveRequest = createUserDto();
-        when(userRepository.existsByNickname("GodHong")).thenReturn(true);
+        when(userRepository.existsByNickname("hong43ok")).thenReturn(true);
 
         assertThrows(DuplicateNicknameException.class, () -> userService.save(saveRequest));
 
-        verify(userRepository, atLeastOnce()).existsByNickname("GodHong");
+        verify(userRepository, atLeastOnce()).existsByNickname("hong43ok");
     }
 
     @Test
     @DisplayName("비밀번호 찾기 -> 전달받은 객체(이메일)가 회원이면 -> 비밀번호 변경 성공")
     public void updatePasswordByForget() {
         ChangePasswordRequest changePasswordRequest = ChangePasswordRequest.builder()
-                .email("HongJungWan@test.com")
+                .email("hong43ok@gmail.com")
                 .passwordAfter("test12345")
                 .build();
         User user = createUserDto().toEntity();
@@ -101,7 +101,7 @@ class UserServiceTest {
     @Test
     @DisplayName("[가입 O] 이메일 입력 -> 비밀번호 변경에 필요한 리소스 리턴")
     public void SuccessToGetUserResource() {
-        String email = "HongJungWan@test.com";
+        String email = "hong43ok@gmail.com";
         User user = createUserDto().toEntity();
 
         when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
@@ -137,7 +137,7 @@ class UserServiceTest {
                 .passwordAfter("test12345")
                 .build();
 
-        String email = "HongJungWan@test.com";
+        String email = "hong43ok@gmail.com";
         String passwordBefore = encryptionService.encrypt(changePasswordRequest.getPasswordBefore());
         String passwordAfter = encryptionService.encrypt(changePasswordRequest.getPasswordAfter());
 
