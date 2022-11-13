@@ -2,7 +2,6 @@ package com.resell.resell.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.resell.resell.controller.dto.BrandDto;
 import com.resell.resell.service.BrandService;
 import com.resell.resell.service.SessionLoginService;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.resell.resell.controller.dto.BrandDto.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -73,43 +71,37 @@ class BrandApiControllerTest {
 
     private SaveRequest createSaveRequest() {
         return SaveRequest.builder()
-                .nameKor("테스트")
-                .nameEng("Test")
+                .nameKor("저장")
+                .nameEng("Save Test")
                 .build();
     }
 
     private SaveRequest createUpdateRequest() {
         return SaveRequest.builder()
-                .nameKor("테스트2")
-                .nameEng("Test2")
-                .originImagePath(
-                        "https://hongjungwan-brands-origin-temp.s3.ap-northeast-2.amazonaws.com/37516f16-288e-4839-b9bb-c35f60c1975a.jpg")
-                .thumbnailImagePath(
-                        "https://hongjungwan-brands-thumbnail-temp.s3.ap-northeast-2.amazonaws.com/37516f16-288e-4839-b9bb-c35f60c1975a.jpg")
+                .nameKor("브랜드 업데이트")
+                .nameEng("Brand Update Test")
+                .originImagePath("https://hongjungwan-brands-origin-temp.s3.ap-northeast-2.amazonaws.com/9a9cec61-4647-4cf5-968b-cc0e9a946730.jpg")
+                .thumbnailImagePath("https://hongjungwan-brands-thumbnail-temp.s3.ap-northeast-2.amazonaws.com/9a9cec61-4647-4cf5-968b-cc0e9a946730.jpg")
                 .build();
     }
 
     private BrandInfo createBrandInfo() {
         return BrandInfo.builder()
                 .id(1L)
-                .nameKor("테스트")
-                .nameEng("Test")
-                .originImagePath(
-                        "https://hongjungwan-brands-origin-temp.s3.ap-northeast-2.amazonaws.com/37516f16-288e-4839-b9bb-c35f60c1975a.jpg")
-                .thumbnailImagePath(
-                        "https://hongjungwan-brands-thumbnail-temp.s3.ap-northeast-2.amazonaws.com/37516f16-288e-4839-b9bb-c35f60c1975a.jpg")
+                .nameKor("브랜드 생성")
+                .nameEng("Brand Create Test")
+                .originImagePath("https://hongjungwan-brands-origin-temp.s3.ap-northeast-2.amazonaws.com/9a9cec61-4647-4cf5-968b-cc0e9a946730.jpg")
+                .thumbnailImagePath("https://hongjungwan-brands-thumbnail-temp.s3.ap-northeast-2.amazonaws.com/9a9cec61-4647-4cf5-968b-cc0e9a946730.jpg")
                 .build();
     }
 
     private BrandInfo createAnotherBrandInfo() {
         return BrandInfo.builder()
                 .id(2L)
-                .nameKor("테스트2")
-                .nameEng("Test2")
-                .originImagePath(
-                        "https://hongjungwan-brands-origin-temp.s3.ap-northeast-2.amazonaws.com/d92aa580-f030-4c3c-9917-4aae15913fde.jpg")
-                .thumbnailImagePath(
-                        "https://hongjungwan-brands-thumbnail-temp.s3.ap-northeast-2.amazonaws.com/d92aa580-f030-4c3c-9917-4aae15913fde.jpg")
+                .nameKor("브랜드 생성2")
+                .nameEng("Brand Create Test2")
+                .originImagePath("https://hongjungwan-brands-origin-temp.s3.ap-northeast-2.amazonaws.com/9a9cec61-4647-4cf5-968b-cc0e9a946730.jpg")
+                .thumbnailImagePath("https://hongjungwan-brands-thumbnail-temp.s3.ap-northeast-2.amazonaws.com/9a9cec61-4647-4cf5-968b-cc0e9a946730.jpg")
                 .build();
     }
 
@@ -134,7 +126,7 @@ class BrandApiControllerTest {
     }
 
     @Test
-    @DisplayName("브랜드 생성")
+    @DisplayName("브랜드 등록")
     void createBrand() throws Exception {
         SaveRequest saveRequest = createSaveRequest();
         MockMultipartFile requestDto = convertMultipartFile(saveRequest);
@@ -165,7 +157,7 @@ class BrandApiControllerTest {
     }
 
     @Test
-    @DisplayName("특정 브랜드 조회")
+    @DisplayName("브랜드 조회 - ID")
     void getBrandInfos() throws Exception {
         BrandInfo brandInfo = createBrandInfo();
         Long id = brandInfo.getId();
@@ -218,7 +210,7 @@ class BrandApiControllerTest {
     }
 
     @Test
-    @DisplayName("브랜드 정보 수정")
+    @DisplayName("브랜드 수정")
     void updateBrand() throws Exception {
         Long id = 1L;
         SaveRequest updateRequest = createUpdateRequest();
