@@ -84,9 +84,9 @@ class UserApiControllerTest {
     @DisplayName("회원가입 -> 모든 유효성 검사 통과 -> 회원가입 성공")
     void createUser_successful() throws Exception {
         SaveRequest saveRequest = SaveRequest.builder()
-                .email("hjw43ok@hs.ac.kr")
+                .email("hong43ok@gmail.com")
                 .password("test1234")
-                .nickname("hjw43ok")
+                .nickname("hong43ok")
                 .phone("01012345678")
                 .build();
 
@@ -112,7 +112,7 @@ class UserApiControllerTest {
     @Test
     @DisplayName("이메일 중복 검사 -> 중복 이메일")
     void DuplicateEmailCheck_failure() throws Exception {
-        String email = "hjw43ok@hs.ac.kr";
+        String email = "hong43ok@gmail.com";
         given(userService.checkEmailDuplicate(email)).willReturn(true);
 
         mockMvc.perform(get("/users/user-emails/{email}/exists", email))
@@ -127,7 +127,7 @@ class UserApiControllerTest {
     @Test
     @DisplayName("이메일 중복 검사 -> 사용 가능 이메일")
     void DuplicateEmailCheck_successful() throws Exception {
-        String email = "hjw43ok@hs.ac.kr";
+        String email = "hong43ok@gmail.com";
         given(userService.checkEmailDuplicate(email)).willReturn(false);
 
         ResultActions resultActions = mockMvc.perform(get("/users/user-emails/{email}/exists", email))
@@ -142,7 +142,7 @@ class UserApiControllerTest {
     @Test
     @DisplayName("닉네임 중복 검사 -> 중복 닉네임")
     void DuplicateNicknameCheck_failure() throws Exception {
-        String nickname = "hjw43ok";
+        String nickname = "hong43ok";
         given(userService.checkNicknameDuplicate(nickname)).willReturn(true);
 
         mockMvc.perform(get("/users/user-nicknames/{nickname}/exists", nickname))
@@ -157,7 +157,7 @@ class UserApiControllerTest {
     @Test
     @DisplayName("닉네임 중복 검사 -> 사용 가능 닉네임")
     void DuplicateNicknameCheck_successful() throws Exception {
-        String nickname = "hjw43ok";
+        String nickname = "hong43ok";
         given(userService.checkNicknameDuplicate(nickname)).willReturn(false);
 
         mockMvc.perform(get("/users/user-nicknames/{nickname}/exists", nickname))
@@ -173,7 +173,7 @@ class UserApiControllerTest {
     @DisplayName("이메일 인증 -> 회원가입 시 이메일 발송 -> 토큰 링크 클릭 -> 인증 성공")
     void emailTokenCertification_successful() throws Exception {
         String token = UUID.randomUUID().toString();
-        String email = "hjw43ok@hs.ac.kr";
+        String email = "hong43ok@gmail.com";
 
         doNothing().when(userService).updateEmailVerified(token, email);
 
@@ -193,7 +193,7 @@ class UserApiControllerTest {
     @DisplayName("이메일 인증 토큰 -> 재전송")
     void resendEmailToken() throws Exception {
 
-        String email = "hjw43ok@hs.ac.kr";
+        String email = "hong43ok@gmail.com";
         MockHttpSession session = new MockHttpSession();
         session.setAttribute(USER_ID, email);
 
@@ -211,7 +211,7 @@ class UserApiControllerTest {
     @DisplayName("로그인 - 등록된 ID, PW 입력 -> 로그인 성공")
     void login_successful() throws Exception {
         LoginRequest requestDto = LoginRequest.builder()
-                .email("hjw43ok@hs.ac.kr")
+                .email("hong43ok@gmail.com")
                 .password("test1234")
                 .build();
 
@@ -248,8 +248,8 @@ class UserApiControllerTest {
     void myPage() throws Exception {
 
         UserInfoDto userInfoDto = UserInfoDto.builder()
-                .email("hjw43ok@hs.ac.kr")
-                .nickname("hjw43ok")
+                .email("hong43ok@gmail.com")
+                .nickname("hong43ok")
                 .phone("01012345678")
                 .userLevel(UserLevel.UNAUTH)
                 .build();
@@ -275,11 +275,11 @@ class UserApiControllerTest {
     @DisplayName("비밀번호 찾기 - 존재하는 email 입력 -> 리소스(email,phone) 리턴")
     void getUerResource_successful() throws Exception {
         FindUserResponse responseDto = FindUserResponse.builder()
-                .email("hjw43ok@hs.ac.kr")
+                .email("hong43ok@gmail.com")
                 .phone("01012345678")
                 .build();
 
-        String email = "hjw43ok@hs.ac.kr";
+        String email = "hong43ok@gmail.com";
 
         given(userService.getUserResource(any())).willReturn(responseDto);
 
@@ -301,7 +301,7 @@ class UserApiControllerTest {
     @DisplayName("비밀번호 찾기 -> email 인증 선택 -> [email] 인증번호 발송")
     void sendEmailCertification() throws Exception {
         EmailCertificationRequest requestDto = EmailCertificationRequest.builder()
-                .email("hjw43ok@hs.ac.kr")
+                .email("hong43ok@gmail.com")
                 .certificationNumber(null)
                 .build();
 
@@ -325,7 +325,7 @@ class UserApiControllerTest {
     @DisplayName("비밀번호 찾기 -> 인증번호 일치 -> 이메일 인증 성공")
     void emailCertification_successful() throws Exception {
         EmailCertificationRequest requestDto = EmailCertificationRequest.builder()
-                .email("hjw43ok@hs.ac.kr")
+                .email("hong43ok@gmail.com")
                 .certificationNumber("123456")
                 .build();
 
@@ -349,7 +349,7 @@ class UserApiControllerTest {
     @DisplayName("비밀번호 찾기 -> 인증이 완료 -> 비밀번호 변경")
     void changePasswordByForget() throws Exception {
         ChangePasswordRequest requestDto = ChangePasswordRequest.builder()
-                .email("hjw43ok@hs.ac.kr")
+                .email("hong43ok@gmail.com")
                 .passwordAfter("test12345")
                 .passwordBefore(null)
                 .build();
@@ -375,12 +375,12 @@ class UserApiControllerTest {
     @DisplayName("비밀번호 변경 -> 이전 비밀번호 일치 -> 비밀번호 변경 성공")
     void changePassword_successful() throws Exception {
         ChangePasswordRequest requestDto = ChangePasswordRequest.builder()
-                .email("hjw43ok@hs.ac.kr")
+                .email("hong43ok@gmail.com")
                 .passwordAfter("test12345")
                 .passwordBefore("newPassword1234")
                 .build();
 
-        String currentUer = "hjw43ok@hs.ac.kr";
+        String currentUer = "hong43ok@gmail.com";
 
         doNothing().when(userService).updatePassword(currentUer, requestDto);
 
@@ -402,7 +402,7 @@ class UserApiControllerTest {
     @DisplayName("환급 계좌 -> 환급 계좌 설정/변경")
     void changeAccount() throws Exception {
         Account account = new Account("국민", "1234", "홍정완");
-        String currentUser = "hjw43ok@hs.ac.kr";
+        String currentUser = "hong43ok@gmail.com";
 
         doNothing().when(userService).updateAccount(currentUser, account);
 
@@ -444,7 +444,7 @@ class UserApiControllerTest {
     @DisplayName("주소록 -> 주소를 추가")
     void addAddressBook() throws Exception {
 
-        String currentUser = "hjw43ok@hs.ac.kr";
+        String currentUser = "hong43ok@gmail.com";
         AddressDto.SaveRequest requestDto = AddressDto.SaveRequest.builder()
                 .id(1L)
                 .addressName("회사")
@@ -496,7 +496,7 @@ class UserApiControllerTest {
     @Test
     @DisplayName("주소록 -> 주소 삭제")
     void deleteAddressBook() throws Exception {
-        String currentUser = "hjw43ok@hs.ac.kr";
+        String currentUser = "hong43ok@gmail.com";
         AddressDto.IdRequest idRequest = AddressDto.IdRequest.builder()
                 .id(2L)
                 .build();
