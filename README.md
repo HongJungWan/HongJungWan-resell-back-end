@@ -113,6 +113,8 @@ Web 개발 환경
 
 <br/>
 
+📄 [Redis를 좀 더 이해하고 사용해 보자 🤔](https://velog.io/@daydream/ReSeller-Project-Redis%EB%A5%BC-%EC%A2%80-%EB%8D%94-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B3%A0-%EC%82%AC%EC%9A%A9%ED%95%B4-%EB%B3%B4%EC%9E%90)
+
 📄 [Redis, 세션 저장소와 캐시 저장소를 분리해 보자 ❗](https://velog.io/@daydream/ReSeller-Project-Redis-%EC%84%B8%EC%85%98-%EC%A0%80%EC%9E%A5%EC%86%8C%EC%99%80-%EC%BA%90%EC%8B%9C-%EC%A0%80%EC%9E%A5%EC%86%8C-%EB%B6%84%EB%A6%AC)
 
 📄 [Cache 적용으로 응답 속도를 개선해 보자 ❗](https://velog.io/@daydream/ReSeller-Project-Cache-%EC%A0%81%EC%9A%A9%EC%9C%BC%EB%A1%9C-%EC%9D%91%EB%8B%B5-%EC%86%8D%EB%8F%84%EB%A5%BC-%EA%B0%9C%EC%84%A0%ED%95%B4%EB%B3%B4%EC%9E%90)
