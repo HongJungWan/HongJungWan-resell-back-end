@@ -165,4 +165,39 @@ class ProductApiControllerTest {
                 .build();
     }
 
+    private Pageable createPageable() {
+        return PageRequest.of(0, 10);
+    }
+
+    private Page<ThumbnailResponse> createProductThumbnailsPage() {
+        List<ThumbnailResponse> thumbnailList = new ArrayList<>();
+        thumbnailList.add(createProductThumbnail());
+        Pageable pageable = createPageable();
+
+        return new PageImpl<>(thumbnailList, pageable, 1);
+    }
+
+    private SearchCondition createSearchCondition() {
+        return SearchCondition.builder()
+                .brandId(1L)
+                .keyword("ka")
+                .orderStandard(OrderStandard.LOW_PRICE).build();
+    }
+
+    private List<TradeBidResponse> createPurchaseBids() {
+
+        List<TradeBidResponse> purchaseBids = new ArrayList<>();
+
+        TradeBidResponse tradeBidResponse = TradeBidResponse.builder()
+                .tradeId(5L)
+                .productId(1L)
+                .productSize(260.0)
+                .price(300000L)
+                .build();
+
+        purchaseBids.add(tradeBidResponse);
+
+        return purchaseBids;
+    }
+
 }
