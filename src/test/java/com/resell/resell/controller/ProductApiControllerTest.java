@@ -200,4 +200,33 @@ class ProductApiControllerTest {
         return purchaseBids;
     }
 
+    private List<TradeBidResponse> createSales() {
+
+        List<TradeBidResponse> saleBids = new ArrayList<>();
+
+        TradeBidResponse tradeBidResponse = TradeBidResponse.builder()
+                .tradeId(5L)
+                .productId(1L)
+                .productSize(260.0)
+                .price(200000L)
+                .build();
+
+        saleBids.add(tradeBidResponse);
+
+        return saleBids;
+    }
+
+
+    private MockMultipartFile createImageFile() {
+        return new MockMultipartFile("productImage", "productImage", MediaType.IMAGE_PNG_VALUE,
+                "sample".getBytes());
+    }
+
+    private MockMultipartFile convertMultipartFile(Object dto)
+            throws JsonProcessingException {
+        return new MockMultipartFile("requestDto", "requestDto", MediaType.APPLICATION_JSON_VALUE,
+                objectMapper.writeValueAsString(dto).getBytes(
+                        StandardCharsets.UTF_8));
+    }
+
 }
