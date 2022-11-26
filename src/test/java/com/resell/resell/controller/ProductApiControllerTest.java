@@ -229,4 +229,60 @@ class ProductApiControllerTest {
                         StandardCharsets.UTF_8));
     }
 
+    @Test
+    @DisplayName("상품 등록")
+    public void createProduct() throws Exception {
+        SaveRequest saveRequest = createSaveRequest();
+        MockMultipartFile requestDto = convertMultipartFile(saveRequest);
+        MockMultipartFile productImage = createImageFile();
+
+        doNothing().when(productService).saveProduct(saveRequest, productImage);
+
+        mockMvc.perform(
+                        multipart("/products")
+                                .file(requestDto)
+                                .file(productImage)
+                                .characterEncoding("utf-8")
+                                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isCreated())
+
+                .andDo(document("products/create",
+                        requestPartFields("requestDto",
+                                fieldWithPath("nameKor").type(JsonFieldType.STRING).description("저장할 상품의 한글명"),
+                                fieldWithPath("nameEng").type(JsonFieldType.STRING).description("저장할 상품의 영문명"),
+                                fieldWithPath("modelNumber").type(JsonFieldType.STRING)
+                                        .description("저장할 상품의 모델 넘버"),
+                                fieldWithPath("color").type(JsonFieldType.STRING).description("저장할 상품의 색상"),
+                                fieldWithPath("releaseDate").type(JsonFieldType.STRING)
+                                        .description("저장할 상품의 발매일"),
+                                fieldWithPath("releasePrice").type(JsonFieldType.NUMBER)
+                                        .description("저장할 상품의 발매가"),
+                                fieldWithPath("currency").type(JsonFieldType.STRING)
+                                        .description("저장할 상품의 발매 통화"),
+                                fieldWithPath("sizeClassification").type(JsonFieldType.STRING)
+                                        .description("저장할 상품의 사이즈 분류"),
+                                fieldWithPath("sizeUnit").type(JsonFieldType.STRING)
+                                        .description("저장할 상품의 사이즈 단위"),
+                                fieldWithPath("minSize").type(JsonFieldType.NUMBER)
+                                        .description("저장할 상품의 최소 사이즈"),
+                                fieldWithPath("maxSize").type(JsonFieldType.NUMBER)
+                                        .description("저장할 상품의 최대 사이즈"),
+                                fieldWithPath("sizeGap").type(JsonFieldType.NUMBER)
+                                        .description("저장할 상품의 사이즈 간격"),
+                                fieldWithPath("brand").type(JsonFieldType.OBJECT).description("저장할 상품의 브랜드"),
+                                fieldWithPath("brand.id").ignored(),
+                                fieldWithPath("brand.nameKor").ignored(),
+                                fieldWithPath("brand.nameEng").ignored(),
+                                fieldWithPath("brand.originImagePath").ignored(),
+                                fieldWithPath("brand.thumbnailImagePath").ignored(),
+                                fieldWithPath("originImagePath").ignored(),
+                                fieldWithPath("thumbnailImagePath").ignored(),
+                                fieldWithPath("resizedImagePath").ignored()),
+                        requestParts(
+                                partWithName("requestDto").ignored(),
+                                partWithName("productImage").description("저장할 상품의 이미지 파일").optional())
+                ));
+    }
+
 }
