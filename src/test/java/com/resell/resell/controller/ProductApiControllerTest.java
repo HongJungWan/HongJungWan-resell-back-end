@@ -285,4 +285,23 @@ class ProductApiControllerTest {
                 ));
     }
 
+    @Test
+    @DisplayName("상품 삭제")
+    void deleteProduct() throws Exception {
+        Long id = 1L;
+
+        doNothing().when(productService).deleteProduct(id);
+
+        mockMvc.perform(
+                        delete("/products/{id}", id))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document(
+                        "products/delete",
+                        pathParameters(
+                                parameterWithName("id").description("삭제할 상품의 ID"))
+                ));
+    }
+
 }
