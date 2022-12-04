@@ -36,19 +36,20 @@ public class BrandService {
         if (checkDuplicateName(requestDto)) {
             throw new DuplicateBrandNameException();
         }
+
         if (brandImage != null) {
             String originImagePath = awsS3Service.uploadBrandImage(brandImage);
             String thumbnailImagePath = FileNameUtils.toThumbnail(originImagePath);
             requestDto.setImagePath(originImagePath, thumbnailImagePath);
         }
+
         brandRepository.save(requestDto.toEntity());
     }
 
     @Transactional(readOnly = true)
     @Cacheable(value = "brands")
     public List<BrandInfo> getBrandInfos() {
-        return brandRepository.findAll().stream()
-                .map(brand -> brand.toBrandInfo()).collect(Collectors.toList());
+        return brandRepository.findAll().stream().map(brand -> brand.toBrandInfo()).collect(Collectors.toList());
     }
 
     /*
@@ -67,11 +68,11 @@ public class BrandService {
     @CacheEvict(value = "brands", allEntries = true)
     @Transactional
     public void deleteBrand(Long id) {
-        Brand brand = brandRepository.findById(id)
-                .orElseThrow(BrandNotFoundException::new);
+        Brand brand = brandRepository.findById(id).orElseThrow(BrandNotFoundException::new);
         String path = brand.getOriginImagePath();
 
         brandRepository.deleteById(id);
+
         if (path != null) {
             String key = FileNameUtils.getFileName(path);
             awsS3Service.deleteBrandImage(key);
@@ -81,8 +82,7 @@ public class BrandService {
     @CacheEvict(value = "brands", allEntries = true)
     @Transactional
     public void updateBrand(Long id, SaveRequest updatedBrand, @Nullable MultipartFile brandImage) {
-        Brand savedBrand = brandRepository.findById(id)
-                .orElseThrow(() -> new BrandNotFoundException());
+        Brand savedBrand = brandRepository.findById(id).orElseThrow(() -> new BrandNotFoundException());
         String savedImagePath = savedBrand.getOriginImagePath();
         String updatedImagePath = updatedBrand.getOriginImagePath();
 
@@ -94,6 +94,7 @@ public class BrandService {
             awsS3Service.deleteBrandImage(key);
             updatedBrand.deleteImagePath();
         }
+
         if (brandImage != null) {
             String originImagePath = awsS3Service.uploadBrandImage(brandImage);
             String thumbnailImagePath = FileNameUtils.toThumbnail(originImagePath);
@@ -106,6 +107,7 @@ public class BrandService {
     @Transactional(readOnly = true)
     public void checkBrandExist(BrandInfo productsBrand) {
         Optional<Brand> savedBrand = brandRepository.findById(productsBrand.getId());
+
         if (savedBrand.isEmpty() || !isSameName(savedBrand.get(), productsBrand)) {
             throw new BrandNotFoundException();
         }
@@ -117,6 +119,7 @@ public class BrandService {
         } else if (!savedBrand.getNameKor().equals(productsBrand.getNameKor())) {
             return false;
         }
+
         return true;
     }
 
@@ -126,11 +129,11 @@ public class BrandService {
         } else if (brandRepository.existsByNameEng(requestDto.getNameEng())) {
             return true;
         }
+
         return false;
     }
 
-    private boolean isDeleteSavedImage(String savedImagePath, String updatedImagePath,
-                                       MultipartFile brandImage) {
+    private boolean isDeleteSavedImage(String savedImagePath, String updatedImagePath, MultipartFile brandImage) {
         return ((updatedImagePath == null && savedImagePath != null) ||
                 (savedImagePath != null && brandImage != null));
     }
