@@ -34,12 +34,14 @@ public class ProductService {
         if (productRepository.existsByModelNumber(requestDto.getModelNumber())) {
             throw new DuplicateModelNumberException();
         }
+
         if (productImage != null) {
             String originImagePath = awsS3Service.uploadProductImage(productImage);
             String thumbnailImagePath = FileNameUtils.toThumbnail(originImagePath);
             String resizedImagePath = FileNameUtils.toResized(originImagePath);
             requestDto.setImagePath(originImagePath, thumbnailImagePath, resizedImagePath);
         }
+
         productRepository.save(requestDto.toEntity());
     }
 
@@ -69,6 +71,7 @@ public class ProductService {
             awsS3Service.deleteProductImage(key);
             updatedProduct.deleteImagePath();
         }
+
         if (productImage != null) {
             String originImagePath = awsS3Service.uploadProductImage(productImage);
             String thumbnailImagePath = FileNameUtils.toThumbnail(originImagePath);
@@ -85,6 +88,7 @@ public class ProductService {
         String path = product.getOriginImagePath();
 
         productRepository.deleteById(id);
+
         if (path != null) {
             String key = FileNameUtils.getFileName(path);
             awsS3Service.deleteProductImage(key);
@@ -100,8 +104,7 @@ public class ProductService {
         throw new DuplicateModelNumberException();
     }
 
-    private boolean isDeleteSavedImage(String savedImagePath, String updatedImagePath,
-                                       MultipartFile productImage) {
+    private boolean isDeleteSavedImage(String savedImagePath, String updatedImagePath, MultipartFile productImage) {
         return ((updatedImagePath == null && savedImagePath != null) ||
                 (savedImagePath != null && productImage != null));
     }
