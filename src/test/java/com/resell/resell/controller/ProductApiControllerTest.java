@@ -286,6 +286,11 @@ class ProductApiControllerTest {
     }
 
     @Test
+    @DisplayName("상품 상세 정보 조회 - ID")
+    void getProductInfo() throws Exception {
+    }
+
+    @Test
     @DisplayName("상품 삭제")
     void deleteProduct() throws Exception {
         Long id = 1L;
