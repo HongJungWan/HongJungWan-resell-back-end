@@ -288,6 +288,75 @@ class ProductApiControllerTest {
     @Test
     @DisplayName("상품 상세 정보 조회 - ID")
     void getProductInfo() throws Exception {
+        ProductInfoResponse productInfo = createProductInfo();
+        Long id = productInfo.getId();
+        given(productService.getProductInfo(id)).willReturn(productInfo);
+
+        mockMvc.perform(
+                        get("/products/{id}", id)
+                                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document("products/get/details",
+                        pathParameters(
+                                parameterWithName("id").description("조회할 상품의 ID")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("조회한 상품의 ID"),
+                                fieldWithPath("nameKor").type(JsonFieldType.STRING).description("조회한 상품의 한글명"),
+                                fieldWithPath("nameEng").type(JsonFieldType.STRING).description("조회한 상품의 영문명"),
+                                fieldWithPath("modelNumber").type(JsonFieldType.STRING)
+                                        .description("조회한 상품의 모델 넘버"),
+                                fieldWithPath("color").type(JsonFieldType.STRING).description("조회한 상품의 색상"),
+                                fieldWithPath("releaseDate").type(JsonFieldType.STRING)
+                                        .description("조회한 상품의 출시일"),
+                                fieldWithPath("releasePrice").type(JsonFieldType.NUMBER)
+                                        .description("조회한 상품의 출시가"),
+                                fieldWithPath("currency").type(JsonFieldType.STRING)
+                                        .description("조회한 상품의 발매 통화"),
+                                fieldWithPath("sizeClassification").type(JsonFieldType.STRING)
+                                        .description("조회한 상품의 사이즈 분류"),
+                                fieldWithPath("sizeUnit").type(JsonFieldType.STRING)
+                                        .description("조회한 상품의 사이즈 단위"),
+                                fieldWithPath("minSize").type(JsonFieldType.NUMBER)
+                                        .description("조회한 상품의 최소 사이즈"),
+                                fieldWithPath("maxSize").type(JsonFieldType.NUMBER)
+                                        .description("조회한 상품의 최대 사이즈"),
+                                fieldWithPath("sizeGap").type(JsonFieldType.NUMBER)
+                                        .description("조회한 상품의 사이즈 간격"),
+                                fieldWithPath("brand").type(JsonFieldType.OBJECT).description("조회한 상품의 브랜드"),
+                                fieldWithPath("brand.id").ignored(),
+                                fieldWithPath("brand.nameKor").ignored(),
+                                fieldWithPath("brand.nameEng").ignored(),
+                                fieldWithPath("brand.originImagePath").ignored(),
+                                fieldWithPath("brand.thumbnailImagePath").ignored(),
+                                fieldWithPath("resizedImagePath").type(JsonFieldType.STRING)
+                                        .description("조회한 상품의 이미지 경로"),
+                                fieldWithPath("saleBids.[].tradeId").type(JsonFieldType.NUMBER)
+                                        .description("판매 입찰 ID"),
+                                fieldWithPath("saleBids.[].productId").type(JsonFieldType.NUMBER)
+                                        .description("판매 입찰 productID"),
+                                fieldWithPath("saleBids.[].productSize").type(JsonFieldType.NUMBER)
+                                        .description("판매 입찰 물품 사이즈"),
+                                fieldWithPath("saleBids.[].price").type(JsonFieldType.NUMBER)
+                                        .description("판매 입찰 물품 가격"),
+                                fieldWithPath("purchaseBids.[].tradeId").type(JsonFieldType.NUMBER)
+                                        .description("구매 입찰  ID"),
+                                fieldWithPath("purchaseBids.[].productId").type(JsonFieldType.NUMBER)
+                                        .description("구매 입찰  productId"),
+                                fieldWithPath("purchaseBids.[].productSize").type(JsonFieldType.NUMBER)
+                                        .description("구매 입찰 물품 사이즈"),
+                                fieldWithPath("purchaseBids.[].price").type(JsonFieldType.NUMBER)
+                                        .description("구매 입찰 물품 가격"),
+                                fieldWithPath("tradeCompleteInfos.[].productSize").type(JsonFieldType.NUMBER)
+                                        .description("완료된 거래의 물품 사이즈"),
+                                fieldWithPath("tradeCompleteInfos.[].price").type(JsonFieldType.NUMBER)
+                                        .description("완료된 거래의 물품 가격"),
+                                fieldWithPath("tradeCompleteInfos.[].completeTime").type(JsonFieldType.STRING)
+                                        .description("거래 완료 시간")
+                        )
+                ));
     }
 
     @Test
@@ -306,6 +375,22 @@ class ProductApiControllerTest {
                         "products/delete",
                         pathParameters(
                                 parameterWithName("id").description("삭제할 상품의 ID"))
+                ));
+    }
+
+    @Test
+    @DisplayName("상품 정렬 기준 조회")
+    void getOrderStandard() throws Exception {
+        mockMvc.perform(
+                        get("/products/order-standards"))
+                .andDo(print())
+                .andExpect(status().isOk())
+
+                .andDo(document(
+                        "products/get/order-standards",
+                        responseFields(
+                                fieldWithPath("[]").type(JsonFieldType.ARRAY)
+                                        .description("상품의 정렬 기준 목록"))
                 ));
     }
 
