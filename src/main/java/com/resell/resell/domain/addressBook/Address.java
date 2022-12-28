@@ -36,4 +36,5 @@ public class Address {
         this.detailedAddress = detailedAddress;
         this.postalCode = postalCode;
     }
+
 }

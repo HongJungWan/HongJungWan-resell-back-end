@@ -5,6 +5,8 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.resell.resell.controller.dto.UserDto;
+import com.resell.resell.controller.dto.UserDto.UserListResponse;
+import com.resell.resell.controller.dto.UserDto.UserSearchCondition;
 import com.resell.resell.domain.users.common.UserLevel;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,9 +24,9 @@ public class AdminRepositoryImpl implements AdminRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<UserDto.UserListResponse> searchByUsers(UserDto.UserSearchCondition searchRequest, Pageable pageable) {
-        QueryResults<UserDto.UserListResponse> results = jpaQueryFactory
-                .select(Projections.fields(UserDto.UserListResponse.class,
+    public Page<UserListResponse> searchByUsers(UserSearchCondition searchRequest, Pageable pageable) {
+        QueryResults<UserListResponse> results = jpaQueryFactory
+                .select(Projections.fields(UserListResponse.class,
                         user.id,
                         user.email,
                         user.userLevel))
@@ -38,7 +40,7 @@ public class AdminRepositoryImpl implements AdminRepository {
                 .limit(pageable.getPageSize())
                 .fetchResults();
 
-        List<UserDto.UserListResponse> users = results.getResults();
+        List<UserListResponse> users = results.getResults();
         long total = results.getTotal();
 
         return new PageImpl<>(users, pageable, total);

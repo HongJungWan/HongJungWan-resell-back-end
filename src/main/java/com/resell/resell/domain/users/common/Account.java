@@ -22,4 +22,5 @@ public class Account {
     private String bankName;
     private String accountNumber;
     private String depositor;
+    
 }

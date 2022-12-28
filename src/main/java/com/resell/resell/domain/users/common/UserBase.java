@@ -27,4 +27,5 @@ public abstract class UserBase extends BaseTimeEntity {
 
     @Enumerated(EnumType.STRING)
     protected UserLevel userLevel;
+    
 }
